@@ -1,0 +1,42 @@
+ DROP TABLE users;
+ CREATE TABLE users(
+ id VARCHAR(20) PRIMARY KEY NOT NULL,
+ password VARCHAR(20) NOT NULL,
+ firstname VARCHAR(20) NOT NULL,
+ lastname VARCHAR(20) NOT NULL 
+ );
+ 
+ DROP TABLE recipes;
+ create table recipes (
+ id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ owner_fk VARCHAR(20) NOT NULL,
+ title VARCHAR(200) NOT NULL, 
+ instructions TEXT NOT NULL,
+ FOREIGN KEY (owner_fk) REFERENCES users(id)
+ );
+ 
+ DROP TABLE ingredients;
+ create table ingredients (
+ id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ title varchar(100) NOT NULL,
+ description TEXT NOT NULL
+ );
+ 
+ DROP TABLE measurementTypes;
+ CREATE TABLE measurementTypes(
+ id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ title VARCHAR(100) NOT NULL,
+ description TEXT NOT NULL
+ );
+ 
+ DROP TABLE recipe_uses_ingredient
+ create table recipe_uses_ingredient (
+ id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ recipe_fk INT NOT NULL,
+ ingredient_fk INT NOT NULL,
+ measurementType_fk INT NOT NULL,
+ quantity INT NOT NULL, 
+ FOREIGN KEY (recipe_fk) REFERENCES recipes(id),
+ FOREIGN KEY (ingredient_fk) REFERENCES ingredients(id),
+ FOREIGN KEY (measurementType_fk) REFERENCES measurementTypes(id)
+ );
