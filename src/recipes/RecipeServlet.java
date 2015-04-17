@@ -3,9 +3,7 @@ package recipes;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -39,11 +37,7 @@ public class RecipeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*
-		Map<String,String> dbProps = new HashMap<String,String>();
-		dbProps.put("javax.persistence.jdbc.user","root");
-		dbProps.put("javax.persistence.jdbc.password","1likework");
-		*/
+
 		
 		emf = Persistence.createEntityManagerFactory("Recipes");
 		EntityManager em = emf.createEntityManager();

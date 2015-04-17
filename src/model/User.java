@@ -1,7 +1,11 @@
 package model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import java.util.List;
 
 
@@ -11,7 +15,10 @@ import java.util.List;
  */
 @Entity
 @Table(name="users")
-@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+@NamedQueries({
+	@NamedQuery(name="User.findAll", query="SELECT u FROM User u"),
+	@NamedQuery(name="User.login", query="SELECT u FROM User u WHERE u.id=:id AND u.password=:password")
+})
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -26,6 +33,8 @@ public class User implements Serializable {
 
 	//bi-directional many-to-one association to Recipe
 	@OneToMany(mappedBy="user")
+	//Instruct the Jackson JSON formatter not to go down this part of the tree.  This is to avoid an infinite loop
+	@JsonIgnore
 	private List<Recipe> recipes;
 
 	public User() {

@@ -1,7 +1,9 @@
 package model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.List;
 
 
@@ -11,7 +13,11 @@ import java.util.List;
  */
 @Entity
 @Table(name="recipes")
-@NamedQuery(name="Recipe.findAll", query="SELECT r FROM Recipe r")
+@NamedQueries({
+	@NamedQuery(name="Recipe.findAll", query="SELECT r FROM Recipe r"),
+	@NamedQuery(name="Recipe.myRecipes", query="SELECT r FROM Recipe r where r.user=:owner")
+	
+})
 public class Recipe implements Serializable {
 	private static final long serialVersionUID = 1L;
 

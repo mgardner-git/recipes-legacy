@@ -19,6 +19,28 @@
     <servlet-name>RecipeServlet</servlet-name>
     <url-pattern>/RecipeServlet</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <description></description>
+    <display-name>LoginServlet</display-name>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>recipes.LoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/LoginServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+      <description></description>
+      <servlet-name>MyRecipesServlet</servlet-name>
+      <servlet-class>recipes.MyRecipesServlet</servlet-class>      
+  </servlet>
+  <servlet-mapping>
+      <servlet-name>MyRecipesServlet</servlet-name>
+      <url-pattern>/MyRecipesServlet</url-pattern>
+  </servlet-mapping>
+  
   <resource-ref>
       <description>DB Connection</description>
       <res-ref-name>ds/OracleDS</res-ref-name>
