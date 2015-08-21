@@ -1,0 +1,25 @@
+<!--See the structure of GroupsAndIngredientsDTO-->
+<div id="ingredientGroupDialog">
+	<h4>Groups</h4>
+	<table>
+		<thead>
+			<tr><th>Group</th><th>Actions</th></tr>
+		</thead>
+		<tbody>
+			<tr ng-class="{selected: gi.group==selectedGroup}" ng-repeat="gi in groups">
+				<td>{{gi.group.title}}</td>
+				<td>
+					<label class = "ui-icon-large ui-icon-join" ng-if="!gi.isMember" class="ui-icon-join" title="Join this Group" 
+					ng-click="joinGroup(gi.group)"></label>
+					<label class= "ui-icon-large ui-icon-discuss" ng-if="gi.isMember && !gi.hasThread" title="Discuss {{ingredient.title}}"
+					ng-click="postNewThread(gi.group)"></label>
+					<label class="ui-icon-large ui-icon-discuss" ng-if="gi.isMember && gi.hasThread" title="Join Discussion About {{ingredient.title}}"
+					ng-click="viewThread(gi.group)"></label>
+				</td>
+		</tbody>
+		
+	</ul>
+	<div id="buttons">
+		
+	</div>
+</div>

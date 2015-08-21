@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="Recipes" transaction-type="RESOURCE_LOCAL">
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<class>org.recipes.model.Ingredient</class>
+		<class>org.recipes.model.Measurementtype</class>
+		<class>org.recipes.model.RecipeUsesIngredient</class>
+		<class>org.recipes.model.Recipe</class>
+		<class>org.recipes.model.User</class>
+		<class>org.recipes.model.Group</class>
+		<class>org.recipes.model.Membership</class>
+		<class>org.recipes.model.Thread</class>
+		<class>org.recipes.model.Post</class>
+		<properties>
+
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/recipes"/>
+			<property name="javax.persistence.jdbc.user" value="root"/>
+			<property name="javax.persistence.jdbc.password" value="1likework"/>
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+		</properties>
+	</persistence-unit></persistence>

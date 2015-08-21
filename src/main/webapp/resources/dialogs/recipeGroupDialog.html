@@ -1,0 +1,26 @@
+<!--See the structure of GroupsAndRecipesDTO-->
+<div id="recipeGroupDialog">
+	
+	<h4>Groups</h4>
+	<table>
+		<thead>
+			<tr><th>Group</th><th>Actions</th></tr>
+		</thead>
+		<tbody>
+			<tr ng-class="{selected: gi.group==selectedGroup}" ng-repeat="gi in groupData">
+				<td>{{gi.group.title}}</td>
+				<td>
+					<label class = "ui-icon-large ui-icon-join" ng-if="!gi.isMember" class="ui-icon-join" title="Join the {{gi.group.title}} Group" 
+					ng-click="joinGroup(gi.group)"></label>
+					<a class= "ui-icon-large ui-icon-discuss" ng-if="gi.isMember && !gi.hasThread" title="Start a discussion about {{selectedRecipe.title}}"
+					ng-href="postRecipe.jsp?groupId={{gi.group.id}}&recipeId={{selectedRecipe.id}}"></a>
+					<a class="ui-icon-large ui-icon-discuss" ng-if="gi.isMember && gi.hasThread" title="Join the discussion about {{selectedRecipe.title}}"
+					ng-href="viewThread.jsp?threadId={{gi.threadId}}></label>
+				</td>
+		</tbody>
+		
+	</ul>
+	<div id="buttons">
+		
+	</div>
+</div>

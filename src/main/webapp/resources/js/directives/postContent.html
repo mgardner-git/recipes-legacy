@@ -1,0 +1,16 @@
+<h4>{{post.title}}</h4>
+<p ng-if="post.recipe == null">
+{{post.content}}
+</p>
+<div class="recipe" ng-if="post.recipe != null">
+	<h5>{{recipe.title}}</h5>
+	<ul class="ingredients">
+		<li ng-repeat="rui in post.recipe.recipeUsesIngredients">
+			{{rui.ingredient.title}}
+		</li>
+	</ul>
+	<p class="instructions">
+		{{post.recipe.instructions}}
+	</p>
+	
+</div>

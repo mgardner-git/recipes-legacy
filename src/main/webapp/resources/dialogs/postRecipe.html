@@ -1,0 +1,47 @@
+<script type="text/javascript">
+
+app.controller('postRecipeController', function($scope, $http, $timeout) {
+	$scope.selectGroup = function(group){
+		console.log(group);
+		$scope.selectedGroup = group;
+	};
+	jQuery("#postRecipe").dialog({
+		autoOpen: false,
+		title: "Post Recipe To Group",
+		modal: true,
+		buttons:[
+			{
+				text: "Post",
+				icons: {primary: "ui-icon ui-icon-plusthick"},
+				click: function() {
+					
+					if ($scope.$parent.selectedRecipe != null && $scope.selectedGroup != null){
+						$http({
+						    url: 'AddThreadServlet',
+						    method: 'PUT',
+						    params: {
+						    	recipeId: $scope.$parent.selectedRecipe.id,
+						    	groupId: $scope.selectedGroup.id
+						    }
+						}).then(function(response){
+							jQuery("#postRecipe").dialog("close");
+							console.log(response);
+						});
+					}else{
+						alert("You must select a group to post to first.");
+					}
+				}
+			}
+		]
+	});
+});
+
+</script>
+
+<div id="postRecipe" style="display:none" ng-controller="postRecipeController">
+	<ul>
+		<li ng-repeat="group in myGroups" ng-click="selectGroup(group)">
+			{{group.title}}
+		</li>
+	</ul>
+</div>

@@ -1,0 +1,116 @@
+DROP TABLE IF EXISTS recipe_uses_ingredient;
+DROP TABLE  IF EXISTS  ingredients; 
+DROP TABLE  IF EXISTS  recipes;
+DROP TABLE  IF EXISTS users;
+DROP TABLE IF EXISTS recipe_posted_in
+DROP TABLE IF EXISTS user_member_of_group;
+DROP TABLE IF EXISTS groups;
+DROP TABLE IF EXISTS posts;
+DROP TABLE IF EXISTS threads;
+ 
+ CREATE TABLE users(
+ id VARCHAR(20) PRIMARY KEY NOT NULL,
+ password VARCHAR(20) NOT NULL,
+ firstname VARCHAR(20) NOT NULL,
+ lastname VARCHAR(20) NOT NULL 
+ );
+ 
+ INSERT INTO USERS (id,password,firstname,lastname) VALUES ("bob","boby123","Bob","Smith");
+ INSERT INTO USERS (id,password,firstname,lastname) VALUES ("charlie","charlie456","Charlie","Jones");
+ 
+ create table recipes (
+ id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ owner_fk VARCHAR(20) NOT NULL,
+ title VARCHAR(200) NOT NULL, 
+ instructions TEXT NOT NULL,
+ FOREIGN KEY (owner_fk) REFERENCES users(id)
+ );
+ INSERT INTO recipes (id,owner_fk,title,instructions) VALUES("1","bob","Bob's awesome chicken soup","Make bob's awesome chicken soup");
+ 
+
+ create table ingredients (
+ id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ title varchar(100) NOT NULL,
+ description TEXT NOT NULL
+ );
+  INSERT INTO ingredients(id,title,description) VALUES("1","Water","Water");
+ INSERT INTO ingredients(id,title,description) VALUES("2","Chicken","Baked, shredded chicken");
+ 
+ DROP TABLE measurementTypes;
+ CREATE TABLE measurementTypes(
+ id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ title VARCHAR(100) NOT NULL,
+ description TEXT NOT NULL
+ );
+INSERT INTO measurementTypes(id,title,description) VALUES("1","Pounds","Pounds");
+INSERT INTO measurementTypes(id,title,description) VALUES("2","Cups","Cups"); 
+
+ create table recipe_uses_ingredient (
+ id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ recipe_fk INT NOT NULL,
+ ingredient_fk INT NOT NULL,
+ measurementType_fk INT NOT NULL,
+ quantity INT NOT NULL, 
+ FOREIGN KEY (recipe_fk) REFERENCES recipes(id) ON DELETE CASCADE,
+ FOREIGN KEY (ingredient_fk) REFERENCES ingredients(id),
+ FOREIGN KEY (measurementType_fk) REFERENCES measurementTypes(id)
+ );
+ #Bob's chicken soup uses 2 cups of water
+INSERT INTO recipe_uses_ingredient(id,recipe_fk,ingredient_fk,measurementType_fk,quantity) VALUES(1,1,1,2,2);
+#Bob's chicken soup uses 1 pound of chicken
+INSERT INTO recipe_uses_ingredient(id,recipe_fk,ingredient_fk,measurementType_fk, quantity) VALUES(2,1,2,1,1); 
+
+
+create table groups(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(100) NOT NULL,
+  description VARCHAR(500) NOT NULL,
+  admin varchar(20) NOT NULL,
+  FOREIGN KEY (admin) REFERENCES users(id) ON DELETE RESTRICT
+ );
+ INSERT INTO groups(id,title,description,admin) VALUES(1,"Mexican Food","Group for people to discuss hispanic food","bob");
+ INSERT INTO groups(id,title,description,admin) VALUES(2,"Chinese Food","Group for people to discuss Chinese food","charlie");
+ INSERT INTO groups(id,title,description,admin) VALUES(3,"Italian Food","Group for people to discuss Italian food","charlie");
+ 
+ 
+ create table membership(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  join_date DATE,
+  user_fk VARCHAR(20) NOT NULL,
+  group_fk INT NOT NULL,
+  FOREIGN KEY (user_fk) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (group_fk) REFERENCES groups(id) ON DELETE CASCADE
+ );
+ #Bob is a member of the Mexican food group
+ INSERT INTO membership(id,join_date,user_fk,group_fk) VALUES(1,NOW(),"bob",1);
+ #Charlie is a member of the Chinese group
+ INSERT INTO membership(id,join_date,user_fk,group_fk) VALUES(2,NOW(),"charlie",2);
+ 
+CREATE TABLE threads(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	title VARCHAR(100) NOT NULL,
+	group_fk INT NOT NULL,
+	ingredient_fk INT,
+	recipe_fk INT,	
+	FOREIGN KEY (group_fk) REFERENCES groups(id) ON DELETE CASCADE,	
+	FOREIGN KEY (ingredient_fk) REFERENCES ingredients(id) ON DELETE RESTRICT,
+	FOREIGN KEY (recipe_fk) REFERENCES recipes(id) ON DELETE CASCADE
+);
+INSERT INTO threads(id,title,group_fk, recipe_fk) VALUES (1,"Discussion about Bob's Chicken Soup",1,1);
+INSERT INTO threads(id,title,group_fk, ingredient_fk) VALUES (2,"Discussion about the ingredient water",1,1);
+
+#self references in case the post is quoting another post.  (Posts therefore become a tree. A thread is a forest of trees)
+CREATE TABLE posts(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	title VARCHAR(100),
+	content LONGTEXT,
+	post_date DATE,
+	user_fk VARCHAR(20) NOT NULL,	
+	post_fk INT,	
+	thread_fk INT NOT NULL,
+	FOREIGN KEY (thread_fk) REFERENCES threads(id) ON DELETE CASCADE,
+	FOREIGN KEY (user_fk) REFERENCES users(id) ON DELETE RESTRICT,
+	FOREIGN KEY (post_fk) REFERENCES posts(id) ON DELETE CASCADE
+ );
+ 
+ 

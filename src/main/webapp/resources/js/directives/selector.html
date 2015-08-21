@@ -1,0 +1,19 @@
+<style>
+.selector select{
+	width: 200px;
+}
+</style>
+<div class="selector">
+<input id="pattern" ng-model="pattern" class="search"/>
+<select multiple="true">
+	<option ng-repeat="element in source | filter: filterElements" ng-click="moveToDestination(element)">
+		{{element.title}}
+	</option>	
+</select>
+<select multiple="true">
+<!--  ng-if="pattern.length = 0 || element.title.search(pattern) >= 0" -->
+	<option ng-repeat="element in destination" ng-click="moveToSource(element)">
+		{{element.title}}
+	</option>	
+</select>
+</div>
