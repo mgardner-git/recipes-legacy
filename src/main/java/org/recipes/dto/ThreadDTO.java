@@ -1,6 +1,7 @@
 package org.recipes.dto;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.recipes.model.Post;
 import org.recipes.model.Thread;
@@ -12,10 +13,9 @@ import org.recipes.model.Thread;
 public class ThreadDTO {
 
 	private int id;
-	private String title;
-	private Date mostRecentPost;
-	private Integer numPosts;
+	private String title;	
 	private GroupDTO group;
+	private List<PostDTO> posts;
 
 	public ThreadDTO(){}
 	public ThreadDTO(Thread entity) {
@@ -23,6 +23,10 @@ public class ThreadDTO {
 		this.title = entity.getTitle();
 		if (entity.getGroup() != null) {
 			this.group = new GroupDTO(entity.getGroup());
+		}
+		posts = new ArrayList<PostDTO>();
+		for (Post postEntity : entity.getPosts()) {
+			posts.add(new PostDTO(postEntity));
 		}
 	}
 
@@ -54,23 +58,18 @@ public class ThreadDTO {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public Date getMostRecentPost() {
-		return mostRecentPost;
-	}
-	public void setMostRecentPost(Date mostRecentPost) {
-		this.mostRecentPost = mostRecentPost;
-	}
-	public Integer getNumPosts() {
-		return numPosts;
-	}
-	public void setNumPosts(Integer numThreads) {
-		this.numPosts = numThreads;
-	}
+
 	public GroupDTO getGroup() {
 		return group;
 	}
 	public void setGroup(GroupDTO group) {
 		this.group = group;
+	}
+	public List<PostDTO> getPosts() {
+		return posts;
+	}
+	public void setPosts(List<PostDTO> posts) {
+		this.posts = posts;
 	}
 	
 }

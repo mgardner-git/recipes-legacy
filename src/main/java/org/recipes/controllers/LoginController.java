@@ -6,15 +6,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.recipes.dto.UserDTO;
 import org.recipes.model.User;
 import org.recipes.web.SessionConstants;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,6 +40,15 @@ public class LoginController {
 			//dispatcher.forward(request,response);
 			return "forward:/myRecipes.jsp";
 		}
+	}
+	
+	@RequestMapping(value="/logout",method=RequestMethod.GET)
+	public String performLogout() {
+		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+		HttpServletRequest request = attr.getRequest();
+		HttpSession session =  request.getSession(true); // true == allow create
+		session.setAttribute(SessionConstants.USER, null);
+		return "forward:/login.jsp";
 	}
 	
 	public UserDTO login(String username, String password){	

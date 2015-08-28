@@ -3,11 +3,7 @@ package org.recipes.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.recipes.model.Group;
-import org.recipes.model.Ingredient;
-import org.recipes.model.Membership;
-import org.recipes.model.User;
-
+import org.recipes.model.*;
 
 public class GroupDTO {
 
@@ -25,7 +21,7 @@ public class GroupDTO {
 		this.id = entity.getId();
 		this.description = entity.getDescription();
 		this.title = entity.getTitle();
-		this.admin = entity.getAdmin();
+		this.admin = entity.getAdmin().getId();
 		
 		for (Membership membershipEntity : entity.getMembers()) {
 			MembershipDTO membershipForm = new MembershipDTO(membershipEntity);

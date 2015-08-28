@@ -34,7 +34,7 @@ public class Recipe implements Serializable {
 	//This annotation ensures that when a recipe is saved, any rui's that belong to that recipe but are not present are deleted.
 	@PrivateOwned
 	//bi-directional many-to-one association to RecipeUsesIngredient
-	@OneToMany(mappedBy="recipe", cascade = CascadeType.PERSIST)	
+	@OneToMany(mappedBy="recipe", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)	
 	private List<RecipeUsesIngredient> recipeUsesIngredients;
 
 	//bi-directional many-to-one association to User

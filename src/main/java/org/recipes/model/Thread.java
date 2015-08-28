@@ -17,6 +17,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 /**
@@ -27,7 +28,7 @@ import javax.persistence.Table;
 @Table(name="threads")
 @NamedQueries({
 	@NamedQuery(name="Thread.findAll", query="SELECT t FROM Thread t"),
-	@NamedQuery(name="Thread.findAllByGroup", query="SELECT T FROM Thread T LEFT JOIN Post P WHERE t.group.id=:groupId GROUP BY T.id ORDER BY MAX(P.postDate) DESC")	
+	@NamedQuery(name="Thread.findByGroupAndRecipe", query="SELECT T FROM Thread T WHERE T.group.id=:groupId AND T.recipe.id=:recipeId")
 })
 public class Thread implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -46,7 +47,8 @@ public class Thread implements Serializable {
 	private String title;
 
 	//bi-directional many-to-one association to Post
-	@OneToMany (cascade=CascadeType.ALL, targetEntity=Post.class, mappedBy="thread", fetch=FetchType.LAZY)	
+	@OneToMany (cascade=CascadeType.ALL, targetEntity=Post.class, mappedBy="thread", fetch=FetchType.EAGER)
+	@OrderBy("postDate DESC")
 	private List<Post> posts;
 
 	@Column(name="recipe_fk",insertable=false, updatable=false)

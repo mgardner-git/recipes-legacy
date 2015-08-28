@@ -9,7 +9,9 @@
 app.controller('RecipesController', function($scope, $http, $timeout) {
 
 	var id = parseLocation()["recipeId"];	
-	$scope.recipe = {};
+	$scope.recipe = {
+			recipeUsesIngredients: []			
+	};
 	$scope.recipe.id = id;	
 	$scope.ingredient = {};
 	$scope.measurement ={};	
@@ -31,9 +33,7 @@ app.controller('RecipesController', function($scope, $http, $timeout) {
 		        alert("The recipe has been successfully " + word);
 		        $scope.recipe = data;
 		        $scope.getRecipe();
-		    }).error(function(data, status, headers, config) {
-		       alert("Error: " + data);
-		});
+		    });
 	};
 	
 	$scope.getMeasurements= function(){
@@ -136,6 +136,22 @@ app.controller('RecipesController', function($scope, $http, $timeout) {
 		$scope.configureRuiAutoCompletes();
 		$scope.setTooltips();
 	});
+	
+	$scope.valid = function(){
+		if ($scope.recipe.title == null || $scope.recipe.instructions == null){
+			console.log("A");
+			return false;
+		}else{
+			for (var index=0; index<$scope.recipe.recipeUsesIngredients.length; index++){
+				var rui=$scope.recipe.recipeUsesIngredients[index];
+				if (rui == null || rui.ingredient == null || rui.title == null || rui.measurementtype == null || rui.quantity == null){
+					console.log("B " + index);
+					return false;
+				}
+			}
+		}
+		return true;
+	}
 });
 </script>
 <style>
@@ -191,7 +207,7 @@ app.controller('RecipesController', function($scope, $http, $timeout) {
 			</tbody>
 		</table>
 	</div>
-	<button ng-click="submit()" value="SAVE">SAVE</button>
+	<button ng-click="submit()" ng-disabled="!valid()" value="SAVE">SAVE</button>
 	<measurement-dialog measurement="measurment"></measurement-dialog>
 	<ingredient-dialog ingredient="ingredient"></ingredient-dialog>
 	

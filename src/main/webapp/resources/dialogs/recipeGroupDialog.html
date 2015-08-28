@@ -12,10 +12,10 @@
 				<td>
 					<label class = "ui-icon-large ui-icon-join" ng-if="!gi.isMember" class="ui-icon-join" title="Join the {{gi.group.title}} Group" 
 					ng-click="joinGroup(gi.group)"></label>
-					<a class= "ui-icon-large ui-icon-discuss" ng-if="gi.isMember && !gi.hasThread" title="Start a discussion about {{selectedRecipe.title}}"
-					ng-href="postRecipe.jsp?groupId={{gi.group.id}}&recipeId={{selectedRecipe.id}}"></a>
-					<a class="ui-icon-large ui-icon-discuss" ng-if="gi.isMember && gi.hasThread" title="Join the discussion about {{selectedRecipe.title}}"
-					ng-href="viewThread.jsp?threadId={{gi.threadId}}></label>
+					<label class= "ui-icon-large ui-icon-discuss" ng-if="gi.isMember && gi.threadId == null" title="Start a discussion about {{selectedRecipe.title}}"
+					ng-click="postRecipe(gi.group)"></label>
+					<a class="ui-icon-large ui-icon-discuss" ng-if="gi.isMember && gi.threadId != null" title="Join the discussion about {{selectedRecipe.title}}"
+					ng-href="discussion/viewThread.jsp?threadId={{gi.threadId}}"></label>
 				</td>
 		</tbody>
 		

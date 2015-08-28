@@ -1,7 +1,7 @@
 app.directive("selector",function(){
 	return{ 
 		restrict: "E",
-		templateUrl:"js/directives/selector.html",
+		templateUrl:"resources/js/directives/selector.html",
 		scope:{
 			source: "=",  //A list of elements for the user to choose from
 			destination:"=" //The list where those elemtns should go when selected.

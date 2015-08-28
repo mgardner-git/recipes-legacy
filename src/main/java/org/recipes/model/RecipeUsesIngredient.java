@@ -21,6 +21,7 @@ public class RecipeUsesIngredient implements Serializable {
 	private int quantity;
 
 	//bi-directional many-to-one association to Ingredient	
+	@ManyToOne
 	@JoinColumn(name="ingredient_fk")
 	private Ingredient ingredient;
 

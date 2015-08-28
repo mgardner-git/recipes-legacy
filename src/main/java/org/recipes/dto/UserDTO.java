@@ -14,6 +14,9 @@ public class UserDTO {
 	private String password;
 	private List<RecipeDTO> recipes;
 	
+	public UserDTO() {
+		
+	}
 	public UserDTO(User entity){
 		this.id = entity.getId();
 		this.firstname = entity.getFirstname();
