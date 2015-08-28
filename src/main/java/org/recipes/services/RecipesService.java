@@ -113,7 +113,7 @@ public class RecipesService {
 	
 	public List<RecipeDTO> analyzeRecipes(RecipeDTO[] recipes){
 		EntityManager em = emf.createEntityManager();
-		TypedQuery<Recipe> query = em.createNamedQuery("Recipe.findAll", Recipe.class);
+   		TypedQuery<Recipe> query = em.createNamedQuery("Recipe.findAll", Recipe.class);
 		List<Recipe> allRecipes = query.getResultList();
 		List<RecipeDTO> results = new ArrayList<RecipeDTO>();
 	
@@ -161,13 +161,16 @@ public class RecipesService {
 					numIngredientsMatch++;
 				}
 			}
-			double ratio = numIngredientsMatch / checkRecipe.getRecipeUsesIngredients().size();
+			Double ratio = (double)numIngredientsMatch / (double)checkRecipe.getRecipeUsesIngredients().size();
 			//TODO: MAGIC NUMBERS
-			if (ratio > .8) {
-				RecipeDTO returnRecipe = new RecipeDTO(checkRecipe);
+			Double threshold = new Double(0.8D);
+			if (ratio.compareTo(threshold) >= 0) {
+				RecipeDTO returnRecipe = new RecipeDTO(checkRecipe,true);
 				results.add(returnRecipe);				
 			}			
 		}
 		return results;
 	}
+	
+
 }

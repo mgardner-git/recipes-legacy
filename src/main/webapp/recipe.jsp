@@ -144,7 +144,7 @@ app.controller('RecipesController', function($scope, $http, $timeout) {
 		}else{
 			for (var index=0; index<$scope.recipe.recipeUsesIngredients.length; index++){
 				var rui=$scope.recipe.recipeUsesIngredients[index];
-				if (rui == null || rui.ingredient == null || rui.title == null || rui.measurementtype == null || rui.quantity == null){
+				if (rui == null || rui.ingredient == null || rui.measurementtype == null || rui.quantity == null){
 					console.log("B " + index);
 					return false;
 				}

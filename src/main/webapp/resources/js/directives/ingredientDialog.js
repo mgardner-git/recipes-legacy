@@ -23,7 +23,8 @@ app.directive("ingredientDialog",function(){
 								        method: $scope.ingredient.id ? "PUT":"POST",		        
 								        data: submitText,
 								    }).success(function(data, status, headers, config) {								        
-								        jQuery("#ingredientDialog").dialog("close");								        
+								        jQuery("#ingredientDialog").dialog("close");	
+								        $scope.ingredient={};
 								    });
 							}
 						}
