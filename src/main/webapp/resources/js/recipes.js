@@ -13,7 +13,7 @@ var parseLocation = function() {
 };
 	
 	
-var app = angular.module('recipesApp', []);
+var app = angular.module('recipesApp', ['ngTooltips']);
 app.controller('RecipesController', function($scope, $http) {
 	
 });
@@ -34,4 +34,9 @@ app.factory('myHttpResponseInterceptor',['$q','$location',function($q,$location)
 //Http Intercpetor to check auth failures for xhr requests
 app.config(['$httpProvider',function($httpProvider) {
 	$httpProvider.interceptors.push('myHttpResponseInterceptor');
-}]);	
+}]);
+
+jQuery(function() {
+	 
+  });
+

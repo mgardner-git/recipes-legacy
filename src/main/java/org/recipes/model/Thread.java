@@ -28,7 +28,10 @@ import javax.persistence.Table;
 @Table(name="threads")
 @NamedQueries({
 	@NamedQuery(name="Thread.findAll", query="SELECT t FROM Thread t"),
-	@NamedQuery(name="Thread.findByGroupAndRecipe", query="SELECT T FROM Thread T WHERE T.group.id=:groupId AND T.recipe.id=:recipeId")
+	@NamedQuery(name="Thread.findByGroupAndRecipe", query="SELECT T FROM Thread T WHERE T.group.id=:groupId AND T.recipe.id=:recipeId"),
+	@NamedQuery(name="Thread.findByGroupAndIngredient", query="SELECT T FROM Thread T WHERE T.group.id=:groupId AND T.ingredient.id=:ingredientId"),
+	@NamedQuery(name="Thread.findByRecipe", query="SELECT T FROM Thread T WHERE T.recipe.id = :recipeId"),
+	@NamedQuery(name="Thread.findByIngredient", query="SELECT T FROM Thread T WHERE T.ingredient.id = :ingredientId")
 })
 public class Thread implements Serializable {
 	private static final long serialVersionUID = 1L;

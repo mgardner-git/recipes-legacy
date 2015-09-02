@@ -2,25 +2,25 @@ app.directive("ingredientGroupDialog",function(){
 	return{ 
 		restrict: "E",
 		templateUrl: "resources/dialogs/postIngredientToGroup.html",
-		scope:{
-			ingredient: "=",
-			groups: "=",
-			scenario:"="			
-		},
+		scope: false,
 		controller: function($scope,$http){			
 			$scope.selectedGroup = null;
 			$scope.selectGroup = function(group){$scope.selectedGroup = group;};
 			
-			$scope.joinGroup = function(){
-				$http.put("JoinGroupServlet?id=" + groupId).
+			$scope.joinGroup = function(group){
+				
+				$http.post("rest/membership/" + group.id).
 				success(function(data,status,headers,config){					
-					
-				}).
-				error(function(data, status, headers, config) {
-					if (status == '<%=HttpServletResponse.SC_FORBIDDEN%>'){
-						window.location.href="login.jsp";
-					}					
-				});	
+					$scope.openDiscussionDialog($scope.selectedIngredient);
+				});
+			}
+			
+			$scope.postNewThread = function(group){
+				$scope.selectedGroup = group;
+				$http.post("rest/threads/postIngredient?groupId=" + group.id + "&ingredientId=" + $scope.selectedIngredient.id).
+				success(function(data,status,headers,config){
+					$scope.openDiscussionDialog($scope.selectedIngredient); //refresh the dialog data
+				});
 			}
 			
 			$scope.view = function(){

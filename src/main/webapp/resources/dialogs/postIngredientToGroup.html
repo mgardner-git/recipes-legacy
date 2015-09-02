@@ -6,15 +6,18 @@
 			<tr><th>Group</th><th>Actions</th></tr>
 		</thead>
 		<tbody>
-			<tr ng-class="{selected: gi.group==selectedGroup}" ng-repeat="gi in groups">
+			<tr ng-class="{selected: gi.group==selectedGroup}" ng-repeat="gi in availableGroups">
 				<td>{{gi.group.title}}</td>
 				<td>
-					<label class = "ui-icon-large ui-icon-join" ng-if="!gi.isMember" class="ui-icon-join" title="Join this Group" 
+					<label class = "ui-icon-large ui-icon-join" ng-if="!gi.isMember" class="ui-icon-join"
+					 tooltip="Join the {{gi.group.title}} Group" tooltip-pos="right" 
 					ng-click="joinGroup(gi.group)"></label>
-					<label class= "ui-icon-large ui-icon-discuss" ng-if="gi.isMember && !gi.hasThread" title="Discuss {{ingredient.title}}"
+					<label class= "ui-icon-large ui-icon-discuss" ng-if="gi.isMember && gi.threadId == null" 
+					tooltip="Discuss {{selectedIngredient.title}} in the {{gi.group.title}} group" tooltip-pos="right"
 					ng-click="postNewThread(gi.group)"></label>
-					<label class="ui-icon-large ui-icon-discuss" ng-if="gi.isMember && gi.hasThread" title="Join Discussion About {{ingredient.title}}"
-					ng-click="viewThread(gi.group)"></label>
+					<a class="ui-icon-large ui-icon-discuss" ng-if="gi.isMember && gi.threadId != null" 
+					tooltip="Join Discussion About {{selectedIngredient.title}}" tooltip-pos="right" 
+					ng-href="discussion/viewThread.jsp?threadId={{gi.threadId}}"></a>
 				</td>
 		</tbody>
 		

@@ -1,4 +1,8 @@
 package org.recipes.dto;
+
+import org.codehaus.jackson.annotate.JsonGetter;
+import org.codehaus.jackson.annotate.JsonSetter;
+
 /**
  * 
  * Contains information about each group, whether the current user is a member of that group, and whether the selected ingredient 
@@ -9,7 +13,7 @@ public class GroupsAndIngredientsDTO {
 
 	GroupDTO group;
 	boolean isMember;
-	boolean hasThread;
+	Integer threadId;
 	
 	public GroupsAndIngredientsDTO() {
 		
@@ -23,20 +27,23 @@ public class GroupsAndIngredientsDTO {
 		this.group = group;
 	}
 
+	@JsonGetter(value="isMember")
 	public boolean isMember() {
 		return isMember;
 	}
 
+	@JsonSetter(value="isMember")
 	public void setMember(boolean isMember) {
 		this.isMember = isMember;
 	}
 
-	public boolean isHasThread() {
-		return hasThread;
+	public Integer getThreadId() {
+		return threadId;
 	}
 
-	public void setHasThread(boolean hasThread) {
-		this.hasThread = hasThread;
+	public void setThreadId(Integer threadId) {
+		this.threadId = threadId;
 	}
+
 	
 }

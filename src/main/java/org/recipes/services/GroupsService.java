@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.recipes.dto.GroupDTO;
+import org.recipes.dto.GroupsAndIngredientsDTO;
 import org.recipes.dto.GroupsAndRecipesDTO;
 import org.recipes.dto.UserDTO;
 import org.recipes.model.Group;
@@ -54,8 +55,6 @@ public class GroupsService {
 				"SELECT G.id, G.title, M.id IS NOT NULL AS isMember, T.id from groups G LEFT JOIN " + 
 				"(select M.id, M.group_fk from membership M WHERE M.user_fk='" + user.getId()  + "') M ON (G.id=M.group_fk) LEFT JOIN " + 
 				"(select T.id, T.group_fk from threads T where T.recipe_fk=" + recipeId + ") T  ON (G.id=T.group_fk);");
-		q.setParameter("userId", user.getId());
-		q.setParameter("recipeId", recipeId);
 		 List dbRows = q.getResultList();
 		 
 		 List<GroupsAndRecipesDTO> results = new ArrayList<GroupsAndRecipesDTO>();	 
@@ -73,4 +72,26 @@ public class GroupsService {
 		 return results;	
 	}
 	
+	public List<GroupsAndIngredientsDTO> getGroupsAndIngredients(UserDTO user, Integer ingredientId){
+		EntityManager em = emf.createEntityManager();
+		Query q = em.createNativeQuery(
+				"SELECT G.id, G.title, M.id IS NOT NULL AS isMember, T.id from groups G LEFT JOIN " + 
+				"(select M.id, M.group_fk from membership M WHERE M.user_fk='" + user.getId()  + "') M ON (G.id=M.group_fk) LEFT JOIN " + 
+				"(select T.id, T.group_fk from threads T where T.ingredient_fk=" + ingredientId + ") T  ON (G.id=T.group_fk);");
+		 List dbRows = q.getResultList();
+		 
+		 List<GroupsAndIngredientsDTO> results = new ArrayList<GroupsAndIngredientsDTO>();	 
+		 for (Object row : dbRows) {
+			 GroupDTO groupForm = new GroupDTO();
+			 GroupsAndIngredientsDTO gr = new GroupsAndIngredientsDTO();
+			 gr.setGroup(groupForm);
+			 Object[] rowData = (Object[])row;
+			 groupForm.setId((Integer)rowData[0]);
+			 groupForm.setTitle((String)rowData[1]);
+			 gr.setMember((Long)rowData[2]>0);			 
+			 gr.setThreadId((Integer)rowData[3]);
+			 results.add(gr);
+		 }
+		 return results;	
+	}
 }

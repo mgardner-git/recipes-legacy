@@ -43,7 +43,14 @@ public class IngredientsService {
 		return results;
 	}
 	
-	public List<IngredientDTO> getMyIngredients(UserDTO user){
+	
+	public IngredientDTO getIngredient(Integer id) {
+		EntityManager em = emf.createEntityManager();
+		Ingredient ingredientEntity = em.find(Ingredient.class, id);
+		IngredientDTO ingredientForm = new IngredientDTO(ingredientEntity);
+		return ingredientForm;
+	}
+	public List<IngredientDTO> getMyIngredients(UserDTO user, String term){
 		
 		EntityManager em = emf.createEntityManager();						 
 		CriteriaBuilder builder = em.getCriteriaBuilder();		
@@ -57,7 +64,14 @@ public class IngredientsService {
 	  	
 	  	Path userPath = u.get("id");
 	  	Predicate userPred = builder.equal(userPath, user.getId()); //only interested in ingredients in recipes belonging to this user
-	  	cq.where(userPred);
+	  	if (term != null) {
+	  		Path titlePath = root.get("title");
+	  		Predicate searchTermPred = builder.like(titlePath, "%" + term + "%");
+	  		Predicate compoundPredicate = builder.and(userPred, searchTermPred);
+	  		cq.where(compoundPredicate);
+	  	}else {
+	  		cq.where(userPred);
+	  	}
 	  	TypedQuery<Ingredient> query = em.createQuery(cq);
 	  	List<Ingredient> ingredients = query.getResultList();
 	  	List<IngredientDTO> results = new ArrayList<IngredientDTO>(ingredients.size());

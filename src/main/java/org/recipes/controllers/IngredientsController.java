@@ -10,10 +10,13 @@ import org.recipes.autocomplete.AJAXUtils;
 import org.recipes.autocomplete.AutoComplete;
 import org.recipes.dto.IngredientDTO;
 import org.recipes.dto.UserDTO;
+import org.recipes.model.User;
 import org.recipes.services.IngredientsService;
+import org.recipes.services.UsersService;
 import org.recipes.web.SessionConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,19 +31,19 @@ public class IngredientsController {
 
 	@Autowired
 	IngredientsService ingredientsService;
+	@Autowired
+	UsersService usersService;
+	
+	@RequestMapping(value="{id}", method=RequestMethod.GET)
+	public @ResponseBody IngredientDTO getIngredient(@PathVariable Integer id) {
+		return ingredientsService.getIngredient(id);
+	}
 	
 	@RequestMapping(value="myIngredients" , method=RequestMethod.GET)
-	public @ResponseBody List<IngredientDTO> getMyIngredients(){
-		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-		HttpServletRequest request = attr.getRequest();
-		HttpSession session =  request.getSession(true); // true == allow create
-		UserDTO loggedInUser = (UserDTO)session.getAttribute(SessionConstants.USER);
-		if (loggedInUser != null) {
-			List<IngredientDTO> results = ingredientsService.getMyIngredients(loggedInUser);
-			return results;
-		}else {
-			return null; //??
-		}
+	public @ResponseBody List<IngredientDTO> getMyIngredients(@RequestParam (required=false) String term){
+		UserDTO loggedInUser = usersService.getLoggedInUser();
+		List<IngredientDTO> results = ingredientsService.getMyIngredients(loggedInUser, term);
+		return results;
 	}
 	
 	@RequestMapping(value="", method=RequestMethod.GET)

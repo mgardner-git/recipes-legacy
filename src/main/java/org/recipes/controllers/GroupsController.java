@@ -11,6 +11,7 @@ import org.recipes.autocomplete.AutoComplete;
 import org.recipes.dto.*;
 import org.recipes.services.GroupsService;
 import org.recipes.services.IngredientsService;
+import org.recipes.services.UsersService;
 import org.recipes.web.SessionConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +30,8 @@ public class GroupsController {
 
 	@Autowired
 	GroupsService groupsService;
-	
+	@Autowired
+	UsersService usersService;
 	
 	@RequestMapping(value="" , method=RequestMethod.PUT)	
 	
@@ -65,14 +67,13 @@ public class GroupsController {
 	 */
 	@RequestMapping(value="recipesAndGroups/{recipeId}", method=RequestMethod.GET)
 	public @ResponseBody List<GroupsAndRecipesDTO> getGroupsAndRecipes(@PathVariable Integer recipeId){
-		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-		HttpServletRequest request = attr.getRequest();
-		HttpSession session = request.getSession(true);
-		UserDTO loggedInUser = (UserDTO)session.getAttribute(SessionConstants.USER);
-		if (loggedInUser != null) {
-			return groupsService.getGroupsAndRecipes(loggedInUser, recipeId);
-		}else {
-			return null;
-		}		
+		UserDTO loggedInUser = usersService.getLoggedInUser();
+		return groupsService.getGroupsAndRecipes(loggedInUser, recipeId);
+	}
+	
+	@RequestMapping(value="ingredientsAndGroups/{ingredientId}", method=RequestMethod.GET)
+	public @ResponseBody List<GroupsAndIngredientsDTO> getGroupsAndIngredients(@PathVariable Integer ingredientId){
+		UserDTO loggedInUser = usersService.getLoggedInUser();
+		return groupsService.getGroupsAndIngredients(loggedInUser, ingredientId);
 	}
 }

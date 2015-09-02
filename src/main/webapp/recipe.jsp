@@ -160,7 +160,7 @@ app.controller('RecipesController', function($scope, $http, $timeout) {
 }
 </style>
 
-<form ng-controller="RecipesController" ng-controller="RecipesController">
+<form ng-controller="RecipesController" >
 	<input ng-if = "recipe.id" ng-model="id" name="id" type = "hidden" />
 	<div>
 		<label for="title">Title</label>

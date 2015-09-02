@@ -3,7 +3,7 @@
 <%@page import="java.util.*" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 
@@ -12,14 +12,16 @@
 <link rel="stylesheet" type="text/css" href="/recipes/resources/js/jquery-ui-1.11.4.custom/jquery-ui.min.css"/>
 <link rel="stylesheet" type="text/css" href="/recipes/resources/style/recipes.css"/>
 <link rel="stylesheet" type="text/css" href="/recipes/resources/style/discussion.css"/>
+<link rel="stylesheet" type="text/css" href="/recipes/resources/js/ngTooltips-master/css/ng-tooltips.css"/>
 <script type="text/javascript" src="/recipes/resources/js/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
 <script type="text/javascript" src="/recipes/resources/js/recipes.js"></script>
+<script type="text/javascript" src="/recipes/resources/js/ngTooltips-master/js/ngtooltips.js"></script>
 
 </head>
 <body ng-app="recipesApp" ng-controller="RecipesController">
 <div id="wrap">
-	<div id="header">
-	</div>
+	<header>
+	</header>
 	<jsp:include page="topNav.jsp"/>
     <div id="leftColumn">
     	<jsp:include page="nav.jsp"/>
