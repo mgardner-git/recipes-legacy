@@ -61,9 +61,9 @@
 				<td>{{ingredient.title}}</td>
 				<td>{{ingredient.description}}</td>
 				<td>
-					<label class="ui-icon-large ui-icon-edit" title="edit ingredient" ng-click="selectIngredient(ingredient)"></label>
+					<label class="ui-icon-large ui-icon-edit" tooltip="edit ingredient" ng-click="selectIngredient(ingredient)"></label>
 				
-					<label class="ui-icon-large ui-icon-discuss" title="Discuss Ingredient with others"
+					<label class="ui-icon-large ui-icon-discuss" tooltip="Discuss Ingredient with others"
 					ng-click="openDiscussionDialog(ingredient)"></label>
 				</td>
 			</tr>

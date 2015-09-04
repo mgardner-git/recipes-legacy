@@ -56,9 +56,9 @@
 						<td>{{recipe.title}}</td>
 						<td>{{recipe.recipeUsesIngredients.length}}</td>
 						<td class="icons">
-							<a ng-click="deleteRecipe(recipe)" title="Delete Recipe" class="ui-icon-large ui-icon-delete"></a>
-							<a ng-click="editRecipe(recipe)" title="Edit Recipe" class="ui-icon-large ui-icon-edit"></a>
-							<a ng-click="openRecipeGroupDialog(recipe)" title = "Post Recipe to a Group" class="ui-icon-large ui-icon-discuss"></a>
+							<a ng-click="deleteRecipe(recipe)" tooltip="Delete Recipe" class="ui-icon-large ui-icon-delete"></a>
+							<a ng-click="editRecipe(recipe)" tooltip="Edit Recipe" class="ui-icon-large ui-icon-edit"></a>
+							<a ng-click="openRecipeGroupDialog(recipe)" tooltip = "Post Recipe to a Group" class="ui-icon-large ui-icon-discuss"></a>
 						</td>	  			
 					</tr>
 				</tbody>

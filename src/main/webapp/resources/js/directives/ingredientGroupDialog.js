@@ -1,7 +1,7 @@
 app.directive("ingredientGroupDialog",function(){
 	return{ 
 		restrict: "E",
-		templateUrl: "resources/dialogs/postIngredientToGroup.html",
+		templateUrl: "resources/dialogs/ingredientGroupDialog.html",
 		scope: false,
 		controller: function($scope,$http){			
 			$scope.selectedGroup = null;
