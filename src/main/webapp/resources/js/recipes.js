@@ -23,7 +23,7 @@ app.factory('myHttpResponseInterceptor',['$q','$location',function($q,$location)
 		responseError: function(response){
 			//see ErrorHandlerFilter.java
 	        if (response.status === 403) {
-	            window.location.href="/recipes/login";
+	            window.location.href="/recipes/login.jsp";
 	        }
 	        return response;
 	   
