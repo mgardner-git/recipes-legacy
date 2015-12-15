@@ -6,6 +6,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+
+import org.recipes.ingredients.Ingredient;
 import org.springframework.stereotype.Service;
 
 
@@ -17,6 +19,31 @@ public class MeasurementTypeService {
 	EntityManagerFactory emf = Persistence.createEntityManagerFactory("recipes");
 		
 	
+	public MeasurementType createOrUpdate(MeasurementType mt){
+		if (mt.getId() != null){
+			return update(mt);
+		}else{
+			List<MeasurementType> matches = searchExact(mt.getTitle());
+			if (matches.size() > 0){
+				//The user is trying to create a new ingredient, but one with a matching title already exists
+				return matches.get(0);
+			}else{
+				return create(mt);
+			}
+		}
+	}
+	
+	/**
+	 * Returns all MeasurementTypes whose title exactly matches the given term as a prefix, ignoring case and leading or trailing whitespace
+	 */
+	public List<MeasurementType> searchExact(String term){
+		EntityManager em = emf.createEntityManager();
+		Query query = em.createNamedQuery("MeasurementType.searchExact");
+		query.setParameter("term", term);
+		@SuppressWarnings("unchecked")
+		List<MeasurementType> results = query.getResultList();
+		return results;		
+	}
 	
 	public MeasurementType create(MeasurementType measurementType) {
 		EntityManager em = emf.createEntityManager();

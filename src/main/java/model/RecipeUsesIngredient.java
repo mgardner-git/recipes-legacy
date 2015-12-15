@@ -1,7 +1,15 @@
 package model;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 import org.recipes.ingredients.Ingredient;
 import org.recipes.measurementTypes.MeasurementType;
@@ -22,7 +30,7 @@ public class RecipeUsesIngredient implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private Integer id;
 
 	private int quantity;
 
@@ -38,18 +46,18 @@ public class RecipeUsesIngredient implements Serializable {
 
 	//bi-directional many-to-one association to Recipe
 	@ManyToOne
-	@JoinColumn(name="recipe_fk")
+	@JoinColumn(name="recipe_fk", updatable=true, insertable=true)
 	@JsonIgnore
 	private Recipe recipe;
 
 	public RecipeUsesIngredient() {
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -69,11 +77,11 @@ public class RecipeUsesIngredient implements Serializable {
 		this.ingredient = ingredient;
 	}
 
-	public MeasurementType getMeasurementtype() {
+	public MeasurementType getMeasurementType() {
 		return this.measurementType;
 	}
 
-	public void setMeasurementtype(MeasurementType measurementtype) {
+	public void setMeasurementType(MeasurementType measurementtype) {
 		this.measurementType = measurementtype;
 	}
 

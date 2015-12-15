@@ -3,17 +3,28 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <jsp:include page="header.jsp"/>
+<script type="text/javascript" src="resources/js/directives/confirmDeleteRecipeDialog.js"></script>
 
 <script type="text/javascript">
 	
 	var app = angular.module('recipesApp');
-	app.controller('myRecipesController', function($scope, $http) {
+	app.controller('myRecipesController', function($scope, $http, $timeout) {
+		$scope.selectedRecipe = null;
 		$scope.getMyRecipes = function(){
+			console.log("Fetching my recipes");
 			$http.get("rest/recipes/myRecipes").
 			success(function(data, status, headers, config) {
 				$scope.myRecipes = data;
 			});
 		}
+		$scope.confirmDeleteRecipe = function(recipe){
+			$scope.selectedRecipe = recipe;
+			$timeout(function(){
+				jQuery("#confirmDeleteRecipeDialog").dialog("open");	
+			});
+			
+		}
+		
 		$scope.getMyRecipes();
 	});
 </script>
@@ -25,15 +36,18 @@
 	<table id="recipes" border="1">
 		<thead><tr>
 			<th>ID</th><th>Title</th>
-			<th><a ng-href="recipe.jsp" class="ui-icon ui-icon-create" title="Create a new Recipe"></a></th>
+			<th align="right"><a ng-href="recipe.jsp" class="ui-icon ui-icon-create" title="Create a new Recipe"></a></th>
 		</tr></thead>
 	  	<tbody>
 	  		<tr ng-repeat="recipe in myRecipes">
 	  			<td>{{recipe.id}}</td>
 	  			<td>{{recipe.title}}</td>
-	  			
+	  			<td><a class="ui-icon ui-icon-large ui-icon-edit" ng-href="recipe.jsp?id={{recipe.id}}" title="edit this recipe"></a>
+	  				<span class="ui-icon ui-icon-large ui-icon-delete" ng-click="confirmDeleteRecipe(recipe)" title="delete this recipe"></span>
+	  			</td>
 	  		</tr>
 	  	</tbody>
 	</table>
+	<confirm-delete-recipe-dialog recipe="selectedRecipe" update-func="getMyRecipes()"></confirm-delete-recipe-dialog>
 </div>
 <jsp:include page="footer.jsp"/>

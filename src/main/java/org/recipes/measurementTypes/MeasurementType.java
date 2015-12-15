@@ -18,13 +18,16 @@ import java.util.List;
  */
 @Entity
 @Table(name="measurementtypes")
-@NamedQuery(name="MeasurementType.findAll", query="SELECT m FROM MeasurementType m")
+@NamedQueries({
+	@NamedQuery(name="MeasurementType.findAll", query="SELECT m FROM MeasurementType m"),
+	@NamedQuery(name="MeasurementType.searchExact", query="SELECT m FROM MeasurementType m WHERE TRIM(UPPER(m.title))=TRIM(UPPER(:term))")
+})
 public class MeasurementType implements Serializable,AutoComplete {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private Integer id;
 
 	@Lob
 	private String description;
@@ -39,11 +42,11 @@ public class MeasurementType implements Serializable,AutoComplete {
 	public MeasurementType() {
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -73,14 +76,14 @@ public class MeasurementType implements Serializable,AutoComplete {
 
 	public RecipeUsesIngredient addRecipeUsesIngredient(RecipeUsesIngredient recipeUsesIngredient) {
 		getRecipeUsesIngredients().add(recipeUsesIngredient);
-		recipeUsesIngredient.setMeasurementtype(this);
+		recipeUsesIngredient.setMeasurementType(this);
 
 		return recipeUsesIngredient;
 	}
 
 	public RecipeUsesIngredient removeRecipeUsesIngredient(RecipeUsesIngredient recipeUsesIngredient) {
 		getRecipeUsesIngredients().remove(recipeUsesIngredient);
-		recipeUsesIngredient.setMeasurementtype(null);
+		recipeUsesIngredient.setMeasurementType(null);
 
 		return recipeUsesIngredient;
 	}

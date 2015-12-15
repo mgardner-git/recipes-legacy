@@ -46,7 +46,7 @@ public class RecipesController {
 	}
 	
 	@RequestMapping(value="", method=RequestMethod.PUT)
-	public  @ResponseBody Recipe update(Recipe recipe){
+	public  @ResponseBody Recipe update(@RequestBody Recipe recipe){
 		User user = SessionStuff.getLoggedInUser();
 		recipe.setUser(user);				
 		Recipe result = recipeService.update(recipe);
@@ -54,8 +54,9 @@ public class RecipesController {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
-	public void delete(@PathVariable Integer id){
+	public @ResponseBody boolean delete(@PathVariable Integer id){
 		recipeService.delete(id);
+		return true;
 	}
 	
 }

@@ -9,7 +9,8 @@
 <script type="text/javascript">
 	
 	var app = angular.module('recipesApp');
-	var id = parseLocation["id"];
+	var id = parseLocation()["id"];
+	console.log(id);
 	app.controller('recipeController', function($scope, $http,$timeout) {
 		
 		

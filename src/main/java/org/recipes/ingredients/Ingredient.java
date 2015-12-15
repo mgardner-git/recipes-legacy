@@ -18,13 +18,16 @@ import java.util.List;
  */
 @Entity
 @Table(name="ingredients")
-@NamedQuery(name="Ingredient.search", query="SELECT i FROM Ingredient i WHERE i.title like :term")
+@NamedQueries({
+	@NamedQuery(name="Ingredient.search", query="SELECT i FROM Ingredient i WHERE i.title like :term"),
+	@NamedQuery(name="Ingredient.searchExact", query="SELECT i FROM Ingredient i WHERE TRIM(UPPER(i.title))=TRIM(UPPER(:term))")
+})
 public class Ingredient implements Serializable, AutoComplete {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private Integer id;
 
 	@Lob
 	private String description;
@@ -39,11 +42,11 @@ public class Ingredient implements Serializable, AutoComplete {
 	public Ingredient() {
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

@@ -1,7 +1,9 @@
-DROP TABLE IF EXISTS recipe_uses_ingredient;
-DROP TABLE  IF EXISTS  ingredients; 
+DROP TABLE IF EXISTS recipe_uses_ingredient; 
+DROP TABLE  IF EXISTS  ingredients;
+DROP TABLE IF EXISTS measurementTypes;
 DROP TABLE  IF EXISTS  recipes;
 DROP TABLE  IF EXISTS users;
+
  CREATE TABLE users(
  id VARCHAR(20) PRIMARY KEY NOT NULL,
  password VARCHAR(20) NOT NULL,
@@ -19,7 +21,7 @@ DROP TABLE  IF EXISTS users;
  instructions TEXT NOT NULL,
  FOREIGN KEY (owner_fk) REFERENCES users(id)
  );
- INSERT INTO recipes (id,owner_fk,title,instructions) VALUES("1","bob","Bob's awesome chicken soup","Make bob's awesome chicken soup");
+ INSERT INTO recipes (id,owner_fk,title,instructions) VALUES(1,"bob","Bob's awesome chicken soup","Make bob's awesome chicken soup");
  
 
  create table ingredients (
@@ -27,13 +29,16 @@ DROP TABLE  IF EXISTS users;
  title varchar(100) NOT NULL,
  description TEXT NOT NULL
  );
+ INSERT INTO ingredients (id,title,description) VALUES(1,"Chicken","meat from a chicken");
+ INSERT INTO ingredients (id,title,description) VALUES(2,"Water","Water");
  
- DROP TABLE measurementTypes;
- CREATE TABLE measurementTypes(
+  CREATE TABLE measurementTypes(
  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
  title VARCHAR(100) NOT NULL,
  description TEXT NOT NULL
  );
+ INSERT INTO measurementTypes (id,title,description) VALUES(1,"pound","pound");
+ INSERT INTO measurementTypes (id,title,description) VALUES(2,"gallon","gallon");
  
 
  create table recipe_uses_ingredient (
@@ -46,3 +51,7 @@ DROP TABLE  IF EXISTS users;
  FOREIGN KEY (ingredient_fk) REFERENCES ingredients(id),
  FOREIGN KEY (measurementType_fk) REFERENCES measurementTypes(id)
  );
+#Bob's awesome chicken soup uses 1 pound of chicken
+INSERT INTO recipe_uses_ingredient (id,recipe_fk,ingredient_fk,measurementType_fk, quantity) VALUES (1,1,1,1,1);
+#Bob's awesome chicken soup uses 1 gallon of water
+INSERT INTO recipe_uses_ingredient (id,recipe_fk,ingredient_fk,measurementType_fk, quantity) VALUES (2,1,2,2,1);

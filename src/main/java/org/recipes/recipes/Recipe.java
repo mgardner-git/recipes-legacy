@@ -25,7 +25,7 @@ public class Recipe implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private Integer id;
 
 	@Lob
 	private String instructions;
@@ -33,7 +33,7 @@ public class Recipe implements Serializable {
 	private String title;
 
 	//bi-directional many-to-one association to RecipeUsesIngredient
-	@OneToMany(mappedBy="recipe")
+	@OneToMany(mappedBy="recipe", cascade=CascadeType.ALL)
 	private List<RecipeUsesIngredient> recipeUsesIngredients;
 
 	//bi-directional many-to-one association to User
@@ -44,11 +44,11 @@ public class Recipe implements Serializable {
 	public Recipe() {
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
