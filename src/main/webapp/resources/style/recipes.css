@@ -48,14 +48,21 @@ body,html {
 
 header
 {
-	background-image: URL(../img/header.gif);
+	background-image: URL(../img/header.jpg);
 	width: 98%;
 	height: 250px;
 	background-position: center;
 	background-repeat: no-repeat;
 	padding:5px 10px;
-	background-color:#ddd;
+	background-color:#f6f6f6;
 }
+header h1
+{
+	text-align: center;	
+	font-size: 65pt;
+	font-family: cursive;
+}
+
 .ui-icon{
 	display: inline-block;
 	cursor: pointer;

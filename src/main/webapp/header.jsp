@@ -21,6 +21,7 @@
 <body ng-app="recipesApp" ng-controller="recipesController">
 <div id="wrap">
 	<header>
+		<h1>Recipes</h1>
 	</header>
 	<jsp:include page="topNav.jsp"/>
     <div id="leftColumn">
