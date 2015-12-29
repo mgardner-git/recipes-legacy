@@ -24,6 +24,8 @@ app.factory('myHttpResponseInterceptor',['$q','$location',function($q,$location)
 			//see ErrorHandlerFilter.java
 	        if (response.status === 403) {
 	            window.location.href="/recipes/login.jsp";
+	        }else{
+	        	alert("We were unable to process your request: " + response);
 	        }
 	        return response;
 	   

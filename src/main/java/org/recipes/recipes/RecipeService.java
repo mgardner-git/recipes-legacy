@@ -12,11 +12,10 @@ import org.recipes.ingredients.Ingredient;
 import org.recipes.ingredients.IngredientService;
 import org.recipes.measurementTypes.MeasurementType;
 import org.recipes.measurementTypes.MeasurementTypeService;
+import org.recipes.recipeUsesIngredient.RecipeUsesIngredient;
 import org.recipes.users.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import model.RecipeUsesIngredient;
 
 
 
@@ -45,10 +44,10 @@ public class RecipeService {
 		em.getTransaction().begin();
 		for (RecipeUsesIngredient rui : recipe.getRecipeUsesIngredients()){
 			rui.setRecipe(recipe); //ensures referential integrity, ensures that the table constraints will be met
-			Ingredient persistedEntity = ingredientService.createOrUpdate(rui.getIngredient());
+			Ingredient persistedEntity = ingredientService.createOrUpdate(em,rui.getIngredient());
 			rui.setIngredient(persistedEntity);
 			
-			MeasurementType persistedMt = measurementTypeService.createOrUpdate(rui.getMeasurementType());
+			MeasurementType persistedMt = measurementTypeService.createOrUpdate(em,rui.getMeasurementType());
 			rui.setMeasurementType(persistedMt);
 		}
 		
@@ -98,12 +97,12 @@ public class RecipeService {
 			List<RecipeUsesIngredient> ruis = new ArrayList<RecipeUsesIngredient>();
 			for (RecipeUsesIngredient rui : recipe.getRecipeUsesIngredients()){
 				rui.setRecipe(recipe); //ensures referential integrity, ensures that the table constraints will be met
-				Ingredient persistedEntity = ingredientService.createOrUpdate(rui.getIngredient()); //?? transaction issues ??
+				Ingredient persistedEntity = ingredientService.createOrUpdate(em,rui.getIngredient()); //?? transaction issues ??
 				rui.setIngredient(persistedEntity);
 				
-				MeasurementType persistedMt = measurementTypeService.createOrUpdate(rui.getMeasurementType());
+				MeasurementType persistedMt = measurementTypeService.createOrUpdate(em,rui.getMeasurementType());
 				rui.setMeasurementType(persistedMt);
-				
+				ruis.add(rui);
 				em.persist(rui);
 			}
 			List<RecipeUsesIngredient> missingChildren = identifyMissingChildren(em,recipe);
@@ -116,9 +115,10 @@ public class RecipeService {
 			
 			base.setInstructions(recipe.getInstructions());
 			base.setTitle(recipe.getTitle());
-			base.setRecipeUsesIngredients(recipe.getRecipeUsesIngredients());
+			base.setRecipeUsesIngredients(ruis);
 			
-			em.persist(base);
+			
+			em.persist(base);			
 			em.flush();
 			Recipe result = em.find(Recipe.class, base.getId()); 
 			em.getTransaction().commit();

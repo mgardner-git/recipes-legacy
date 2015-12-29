@@ -3,11 +3,10 @@ package org.recipes.measurementTypes;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import org.recipes.recipeUsesIngredient.RecipeUsesIngredient;
 import org.recipes.util.AutoComplete;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import model.RecipeUsesIngredient;
 
 import java.util.List;
 
@@ -17,7 +16,7 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="measurementtypes")
+@Table(name="measurement_types")
 @NamedQueries({
 	@NamedQuery(name="MeasurementType.findAll", query="SELECT m FROM MeasurementType m"),
 	@NamedQuery(name="MeasurementType.searchExact", query="SELECT m FROM MeasurementType m WHERE TRIM(UPPER(m.title))=TRIM(UPPER(:term))")

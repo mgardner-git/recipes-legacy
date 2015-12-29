@@ -4,6 +4,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.recipes.ingredients.Ingredient;
+import org.recipes.ingredients.IngredientService;
+import org.recipes.measurementTypes.MeasurementType;
+import org.recipes.measurementTypes.MeasurementTypeService;
+import org.recipes.recipeUsesIngredient.RecipeUsesIngredient;
+import org.recipes.recipeUsesIngredient.RecipeUsesIngredientService;
 import org.recipes.users.User;
 import org.recipes.users.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +23,13 @@ public class RecipeServiceTest extends TestCase{
 
 	@Autowired
 	RecipeService recipeService;
+	@Autowired
+	IngredientService ingredientService;
+	@Autowired
+	MeasurementTypeService measurementTypeService;
+	@Autowired
+	RecipeUsesIngredientService recipeUsesIngredientService;
+	
 	@Autowired
 	UserService userService;
 	Integer deleteMeId=null;
@@ -72,6 +85,41 @@ public class RecipeServiceTest extends TestCase{
 		assertNotNull(updateResult);
 		assertEquals(updateResult.getId(), result.getId());
 		assertEquals("Test2", updateResult.getTitle());		
+		
+	}
+	
+	@Test
+	public void testUpdateWithOrphanedRui(){
+		Recipe recipe = new Recipe();
+		recipe.setTitle("Test1");
+		recipe.setInstructions("some instructions");
+		recipe.setUser(user);
+		
+		//create a recipe with 1 rui
+		Ingredient ingredientOne = ingredientService.read(1);
+		MeasurementType mt = measurementTypeService.read(1);
+		RecipeUsesIngredient rui = new RecipeUsesIngredient();
+		rui.setIngredient(ingredientOne);
+		rui.setMeasurementType(mt);
+		recipe.getRecipeUsesIngredients().add(rui);
+		Recipe result = recipeService.create(recipe);
+		
+		assertNotNull(rui.getId());		
+		assertNotNull(result.getId());
+		deleteMeId = result.getId();
+		
+		//remove the rui
+		result.setTitle("Test2");
+		result.getRecipeUsesIngredients().remove(0);
+		
+		Recipe updateResult = recipeService.update(result);
+		assertNotNull(updateResult);
+		assertEquals(updateResult.getId(), result.getId());
+		assertEquals("Test2", updateResult.getTitle());
+		assertTrue(updateResult.getRecipeUsesIngredients().size() == 0);
+		
+		RecipeUsesIngredient thisShouldNotExistAnymore = recipeUsesIngredientService.read(rui.getId());
+		assertNull(thisShouldNotExistAnymore);
 		
 	}
 

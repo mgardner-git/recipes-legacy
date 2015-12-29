@@ -19,16 +19,16 @@ public class MeasurementTypeService {
 	EntityManagerFactory emf = Persistence.createEntityManagerFactory("recipes");
 		
 	
-	public MeasurementType createOrUpdate(MeasurementType mt){
+	public MeasurementType createOrUpdate(EntityManager em, MeasurementType mt){
 		if (mt.getId() != null){
-			return update(mt);
+			return update(em,mt);
 		}else{
 			List<MeasurementType> matches = searchExact(mt.getTitle());
 			if (matches.size() > 0){
 				//The user is trying to create a new ingredient, but one with a matching title already exists
 				return matches.get(0);
 			}else{
-				return create(mt);
+				return create(em,mt);
 			}
 		}
 	}
@@ -48,9 +48,16 @@ public class MeasurementTypeService {
 	public MeasurementType create(MeasurementType measurementType) {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
+		MeasurementType result =  create(em, measurementType);
+		em.getTransaction().commit();
+		return result;
+	}
+	
+	public MeasurementType create(EntityManager em, MeasurementType measurementType) {		
+		
 		em.persist(measurementType);
 		em.flush();
-		em.getTransaction().commit();		
+				
 		return measurementType;
 	}
 	
@@ -69,19 +76,22 @@ public class MeasurementTypeService {
 
 	public MeasurementType update(MeasurementType measurementType) {
 		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		MeasurementType result = update(em, measurementType);
+		em.getTransaction().commit();
+		return result;
+	}
+	public MeasurementType update(EntityManager em, MeasurementType measurementType) {		
 		MeasurementType base = em.find(MeasurementType.class, measurementType.getId());
 		if (base == null) {
 			//TODO: 404
 			throw new IllegalArgumentException("Can't find measurementType with id " + measurementType.getId());
-		}else {
-			
-			em.getTransaction().begin();
+		}else {			
 			base.setDescription(measurementType.getDescription());
 			base.setTitle(measurementType.getTitle());
 			em.persist(base);
 			em.flush();
-			MeasurementType result = em.find(MeasurementType.class, base.getId()); 
-			em.getTransaction().commit();
+			MeasurementType result = em.find(MeasurementType.class, base.getId());			
 			return result;
 		}
 	}

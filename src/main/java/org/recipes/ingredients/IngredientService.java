@@ -6,6 +6,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+
+import org.recipes.users.User;
 import org.springframework.stereotype.Service;
 
 
@@ -17,28 +19,48 @@ public class IngredientService {
 	EntityManagerFactory emf = Persistence.createEntityManagerFactory("recipes");	
 	
 	
-	public Ingredient createOrUpdate(Ingredient ingredient){
+	
+	public Ingredient createOrUpdate(EntityManager em, Ingredient ingredient){
 		if (ingredient.getId() != null){
-			return update(ingredient);
+			return update(em,ingredient);
 		}else{
 			List<Ingredient> matches = searchExact(ingredient.getTitle());
 			if (matches.size() > 0){
 				//The user is trying to create a new ingredient, but one with a matching title already exists
 				return matches.get(0);
 			}else{
-				return create(ingredient);
+				return create(em,ingredient);
 			}
 		}
 	}
 	
 	
-	public Ingredient create(Ingredient ingredient) {
+	public Ingredient create(Ingredient ingredient){
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
+		Ingredient result =  create(em, ingredient);
+		em.getTransaction().commit();
+		return result;
+	}
+	
+	public Ingredient create(EntityManager em, Ingredient ingredient) {		
+		
 		em.persist(ingredient);
-		em.flush();
-		em.getTransaction().commit();		
+		em.flush();				
 		return ingredient;
+	}
+	
+	
+	/**
+	 * Returns all ingredients which are attached to recipes belonging to the given user
+	 */
+	public List<Ingredient> getMyIngredients(User user){
+		EntityManager em = emf.createEntityManager();
+		Query query = em.createNamedQuery("Ingredient.myIngredients");
+		query.setParameter("user", user);
+		@SuppressWarnings("unchecked")
+		List<Ingredient> results = query.getResultList();
+		return results;			
 	}
 	
 	/**
@@ -72,21 +94,25 @@ public class IngredientService {
 		return ingredient;
 	}
 
-	public Ingredient update(Ingredient ingredient) {
+	public Ingredient update(Ingredient ingredient){
 		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		Ingredient result =  update(em, ingredient);
+		em.getTransaction().commit();
+		return result;
+	}
+	public Ingredient update(EntityManager em, Ingredient ingredient) {		
 		Ingredient base = em.find(Ingredient.class, ingredient.getId());
 		if (base == null) {
 			//TODO: 404
 			throw new IllegalArgumentException("Can't find ingredient with id " + ingredient.getId());
-		}else {
-			
-			em.getTransaction().begin();
+		}else {		
+	
 			base.setDescription(ingredient.getDescription());
 			base.setTitle(ingredient.getTitle());
 			em.persist(base);
 			em.flush();
-			Ingredient result = em.find(Ingredient.class, base.getId()); 
-			em.getTransaction().commit();
+			Ingredient result = em.find(Ingredient.class, base.getId());			
 			return result;
 		}
 	}

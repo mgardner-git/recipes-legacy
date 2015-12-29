@@ -1,0 +1,21 @@
+<div id="selector">
+<style>
+#selector_buttons{
+	display: inline;
+}
+select{
+	min-height: 200px;
+}
+
+</style>
+<select id="base" ng-change="select()" ng-options="item.label for item in selectableItems" ng-model="selectedItem" ng-size="{{size}}">
+	  <option value="" selected hidden />
+</select>
+<div id="selector_buttons">
+	<button title="Select All" ng-click="selectAll()">&gt;&gt;</button>
+	<button titel="Deselect All" ng-click="deselectAll()">&lt;&lt;</button>
+</div>
+<select id="selected" ng-change = "deselect()" ng-options="item.label for item in selectedItems" ng-model="deselectedItem" ng-size="{{size}}">
+  <option value="" selected hidden />
+</select>
+</div>

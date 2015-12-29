@@ -1,4 +1,4 @@
-package model;
+package org.recipes.recipeUsesIngredient;
 
 import java.io.Serializable;
 

@@ -2,8 +2,9 @@ package org.recipes.ingredients;
 
 import java.util.List;
 
-import org.recipes.util.AutoComplete;
+import org.recipes.users.User;
 import org.recipes.util.AutoCompleteDTO;
+import org.recipes.util.SessionStuff;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,14 @@ public class IngredientsController {
 		return autoCompleteResults;
 	}
 	
+	
+	@RequestMapping(value="myIngredients", method=RequestMethod.GET)
+	public @ResponseBody List<AutoCompleteDTO> getMyIngredients(){
+		User user = SessionStuff.getLoggedInUser();
+		List<Ingredient> results = ingredientService.getMyIngredients(user);
+		List<AutoCompleteDTO> transformedResults = AutoCompleteDTO.transform(results);
+		return transformedResults;
+	}
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public  @ResponseBody Ingredient read(@PathVariable Integer id){
 		Ingredient result = ingredientService.read(id);

@@ -3,10 +3,10 @@ package org.recipes.recipes;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import org.recipes.recipeUsesIngredient.RecipeUsesIngredient;
 import org.recipes.users.User;
 
-import model.RecipeUsesIngredient;
-
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -42,6 +42,7 @@ public class Recipe implements Serializable {
 	private User user;
 
 	public Recipe() {
+		recipeUsesIngredients = new ArrayList<RecipeUsesIngredient>();
 	}
 
 	public Integer getId() {

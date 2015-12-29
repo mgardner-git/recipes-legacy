@@ -11,7 +11,7 @@ DROP TABLE  IF EXISTS users;
  lastname VARCHAR(20) NOT NULL 
  );
  
- INSERT INTO USERS (id,password,firstname,lastname) VALUES ("bob","boby123","Bob","Smith");
+ INSERT INTO users (id,password,firstname,lastname) VALUES ("bob","boby123","Bob","Smith");
  
  
  create table recipes (
@@ -32,13 +32,13 @@ DROP TABLE  IF EXISTS users;
  INSERT INTO ingredients (id,title,description) VALUES(1,"Chicken","meat from a chicken");
  INSERT INTO ingredients (id,title,description) VALUES(2,"Water","Water");
  
-  CREATE TABLE measurementTypes(
+  CREATE TABLE measurement_types(
  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
  title VARCHAR(100) NOT NULL,
  description TEXT NOT NULL
  );
- INSERT INTO measurementTypes (id,title,description) VALUES(1,"pound","pound");
- INSERT INTO measurementTypes (id,title,description) VALUES(2,"gallon","gallon");
+ INSERT INTO measurement_types (id,title,description) VALUES(1,"pound","pound");
+ INSERT INTO measurement_types (id,title,description) VALUES(2,"gallon","gallon");
  
 
  create table recipe_uses_ingredient (
@@ -49,7 +49,7 @@ DROP TABLE  IF EXISTS users;
  quantity INT NOT NULL, 
  FOREIGN KEY (recipe_fk) REFERENCES recipes(id),
  FOREIGN KEY (ingredient_fk) REFERENCES ingredients(id),
- FOREIGN KEY (measurementType_fk) REFERENCES measurementTypes(id)
+ FOREIGN KEY (measurementType_fk) REFERENCES measurement_types(id)
  );
 #Bob's awesome chicken soup uses 1 pound of chicken
 INSERT INTO recipe_uses_ingredient (id,recipe_fk,ingredient_fk,measurementType_fk, quantity) VALUES (1,1,1,1,1);

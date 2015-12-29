@@ -1,4 +1,4 @@
-package model;
+package org.recipes.recipeUsesIngredient;
 
 import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
@@ -7,7 +7,7 @@ import org.recipes.ingredients.Ingredient;
 import org.recipes.measurementTypes.MeasurementType;
 import org.recipes.recipes.Recipe;
 
-@Generated(value="Dali", date="2015-12-08T19:08:48.431-0800")
+@Generated(value="Dali", date="2015-12-15T19:37:36.300-0800")
 @StaticMetamodel(RecipeUsesIngredient.class)
 public class RecipeUsesIngredient_ {
 	public static volatile SingularAttribute<RecipeUsesIngredient, Integer> id;

@@ -4,9 +4,9 @@ import javax.annotation.Generated;
 import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
-import model.RecipeUsesIngredient;
+import org.recipes.recipeUsesIngredient.RecipeUsesIngredient;
 
-@Generated(value="Dali", date="2015-12-06T13:51:35.451-0800")
+@Generated(value="Dali", date="2015-12-15T19:37:36.487-0800")
 @StaticMetamodel(Ingredient.class)
 public class Ingredient_ {
 	public static volatile SingularAttribute<Ingredient, Integer> id;
