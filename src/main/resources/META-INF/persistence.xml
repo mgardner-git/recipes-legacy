@@ -9,17 +9,18 @@
 		<class>org.recipes.recipes.Recipe</class>
 		<class>org.recipes.users.User</class>
 		<properties>		
+			
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"></property>
 			<property name="hibernate.connection.password" value="r3cip3s"></property>
 			<property name="hibernate.connection.url" value="jdbc:mysql://159.203.255.18:3306/recipes"></property>		
 			<property name="hibernate.connection.username" value="recipes"></property>
-			<!-- 
+		 <!--
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"></property>
 			<property name="hibernate.connection.password" value="1likework"></property>
 			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/recipes"></property>		
 			<property name="hibernate.connection.username" value="root"></property>
-			
-			 -->
+		-->
+			 
 		</properties>
 	</persistence-unit>
 </persistence>

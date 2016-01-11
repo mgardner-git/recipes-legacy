@@ -8,6 +8,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
 import org.recipes.ingredients.Ingredient;
 import org.recipes.ingredients.IngredientService;
 import org.recipes.measurementTypes.MeasurementType;
@@ -37,6 +39,53 @@ public class RecipeService {
 		@SuppressWarnings("unchecked")
 		List<Recipe> results = query.getResultList();
 		return results;
+	}
+	
+	
+	private boolean isIn(int check, List<Ingredient> ingredients){
+		for (Ingredient checkIngredient: ingredients){
+			if (checkIngredient.getId() == check){
+				return true;
+			}
+		}
+		return false;
+	}
+	/**
+	 * Given a list of ingredients in my cupboard, give me all the recipes that I would only have to buy X more ingredients in order to make
+	 * @Param ingredientIds The list of ingredients in my cupboard, we only need the Ids
+	 * @Param threshold The number of allowable additional ingredients in the returned recipes
+	 * @Return All recipes such that the number of ingredients in that recipe but not in the input ingredient list is less than or equal to threshold
+	 * 
+	 */
+	public List<Recipe> getRecipesThatCloselyMatchIngredientList(List<Ingredient> ingredients, int threshold){		
+		EntityManager em = emf.createEntityManager();
+		/*
+		Session session = (Session)em.unwrap(Session.class);
+		String cupboardQuery = "select r.id, r.title, count(rui.ingredient_fk) from recipes r left join (select * from recipe_uses_ingredient rui2 where rui2.ingredient_fk NOT IN :ingredients) rui ON (r.id=rui.recipe_fk) group by r.id";
+		SQLQuery query = session.createSQLQuery(cupboardQuery);
+		query.setParameter("ingredients", ingredientIds);
+		List result = query.list();
+		*/
+		
+		Query query = em.createNamedQuery("Recipe.findAll");
+		@SuppressWarnings("unchecked")
+		List<Recipe> allRecipes = query.getResultList();
+		List<Recipe> matchingRecipes = new ArrayList<Recipe>();
+		for (Recipe checkRecipe : allRecipes){
+			//find the number of ingredients in checkRecipe whose ID is not in ingredientIds
+			int sum = 0;
+			for (RecipeUsesIngredient rui : checkRecipe.getRecipeUsesIngredients()){
+				if (!isIn(rui.getIngredient().getId().intValue(),ingredients)){
+					sum++;
+				}
+			}
+			if (sum <= threshold){
+				checkRecipe.setUser(null); //avoid sending back the password and other unnecessary info.
+				matchingRecipes.add(checkRecipe);
+			}
+		}
+		
+		return matchingRecipes;
 	}
 	
 	public Recipe create(Recipe recipe) {

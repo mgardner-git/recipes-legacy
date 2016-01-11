@@ -1,5 +1,7 @@
 package org.recipes.recipes;
 
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -139,4 +141,11 @@ public class RecipeServiceTest extends TestCase{
 		assertNull(result2);
 	}
 	
+	@Test
+	public void testCupboardQuery(){
+		int[] ingredients = {2,3,4};
+		List<Recipe> results = recipeService.getRecipesThatCloselyMatchIngredientList(ingredients, 2);
+		
+		
+	}
 }

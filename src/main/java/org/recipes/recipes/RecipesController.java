@@ -2,6 +2,7 @@ package org.recipes.recipes;
 
 import java.util.List;
 
+import org.recipes.ingredients.Ingredient;
 import org.recipes.users.User;
 import org.recipes.util.SessionStuff;
 import org.slf4j.Logger;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -29,6 +31,12 @@ public class RecipesController {
 	public @ResponseBody List<Recipe> getMyRecipes(){
 		User user = SessionStuff.getLoggedInUser();
 		return recipeService.getMyRecipes(user);
+	}
+	
+	//jQuery's ajax routine is wierd about doing GET's with an array so I have to do a post here
+	@RequestMapping(value="analyzeIngredients", method=RequestMethod.POST)
+	public @ResponseBody List<Recipe> analyzeIngredients(@RequestBody List<Ingredient> ingredients, @RequestParam int threshold){
+		return recipeService.getRecipesThatCloselyMatchIngredientList(ingredients, threshold);
 	}
 	
 	@RequestMapping(value="" , method = RequestMethod.POST)

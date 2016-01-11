@@ -12,7 +12,7 @@ DROP TABLE  IF EXISTS users;
  );
  
  INSERT INTO users (id,password,firstname,lastname) VALUES ("bob","boby123","Bob","Smith");
- 
+ INSERT INTO users (id,password,firstname,lastname) VALUES ("alice", "alice123", "Alice", "Robertson");
  
  create table recipes (
  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -22,6 +22,7 @@ DROP TABLE  IF EXISTS users;
  FOREIGN KEY (owner_fk) REFERENCES users(id)
  );
  INSERT INTO recipes (id,owner_fk,title,instructions) VALUES(1,"bob","Bob's awesome chicken soup","Make bob's awesome chicken soup");
+ INSERT INTO recipes (id,owner_fk,title,instructions) VALUES(2,"alice","Alice's healthy chicken soup", "Make Alice's healthy chicken soup");
  
 
  create table ingredients (
@@ -31,6 +32,10 @@ DROP TABLE  IF EXISTS users;
  );
  INSERT INTO ingredients (id,title,description) VALUES(1,"Chicken","meat from a chicken");
  INSERT INTO ingredients (id,title,description) VALUES(2,"Water","Water");
+ INSERT INTO ingredients (id,title,description) VALUES(3,"Celery","green and crunchy");
+ INSERT INTO ingredients (id,title, description) VALUES(4,"Broccoli","looks like a tree");
+ 
+ 
  
   CREATE TABLE measurement_types(
  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -55,3 +60,13 @@ DROP TABLE  IF EXISTS users;
 INSERT INTO recipe_uses_ingredient (id,recipe_fk,ingredient_fk,measurementType_fk, quantity) VALUES (1,1,1,1,1);
 #Bob's awesome chicken soup uses 1 gallon of water
 INSERT INTO recipe_uses_ingredient (id,recipe_fk,ingredient_fk,measurementType_fk, quantity) VALUES (2,1,2,2,1);
+#and one pound of celery
+INSERT INTO recipe_uses_ingredient (id,recipe_fk,ingredient_fk, measurementType_fk, quantity) VALUES (3,1,3,1,1);
+
+#Alice's healthy chicken soup uses 1 pound of chicken
+INSERT INTO recipe_uses_ingredient (id,recipe_fk,ingredient_fk,measurementType_fk, quantity) VALUES (4,2,1,1,1);
+#Alice's healthy chicken soup uses 1 gallon of water
+INSERT INTO recipe_uses_ingredient (id,recipe_fk,ingredient_fk,measurementType_fk, quantity) VALUES (5,2,2,2,1);
+#and one pound of broccoli
+INSERT INTO recipe_uses_ingredient (id,recipe_fk,ingredient_fk, measurementType_fk, quantity) VALUES (6,2,4,1,1);
+

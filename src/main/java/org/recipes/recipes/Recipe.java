@@ -18,7 +18,7 @@ import java.util.List;
 @Table(name="recipes")
 @NamedQueries({
 	@NamedQuery(name="Recipe.findAll", query="SELECT r FROM Recipe r"),
-	@NamedQuery(name="Recipe.myRecipes", query="SELECT r FROM Recipe r WHERE r.user = :user")
+	@NamedQuery(name="Recipe.myRecipes", query="SELECT r FROM Recipe r WHERE r.user = :user"),
 })
 public class Recipe implements Serializable {
 	private static final long serialVersionUID = 1L;

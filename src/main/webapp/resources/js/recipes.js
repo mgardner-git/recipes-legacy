@@ -15,7 +15,6 @@ var parseLocation = function() {
 	
 var app = angular.module('recipesApp', ['ngTooltips']);
 app.controller('recipesController', function($scope, $http) {
-	
 });
 
 app.factory('myHttpResponseInterceptor',['$q','$location',function($q,$location){

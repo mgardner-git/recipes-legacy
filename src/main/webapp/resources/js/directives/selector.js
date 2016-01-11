@@ -4,7 +4,7 @@ app.directive("selector",function(){
 		templateUrl:'resources/js/directives/templates/selector.html',
 		scope:{
 			items:"=",
-			selection: "="
+			selectedItems: "="
 		},
 		link: function($scope, element, attrs){
 		} ,

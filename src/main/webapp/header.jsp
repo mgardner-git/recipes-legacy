@@ -13,8 +13,9 @@
 <link rel="stylesheet" type="text/css" href="/recipes/resources/js/jquery-ui-timepicker-addon.css"/>
 <script type="text/javascript" src="/recipes/resources/js/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
 <script type="text/javascript" src="/recipes/resources/js/jquery-ui-timepicker-addon.js"></script>
-<script type="text/javascript" src="/recipes/resources/js/recipes.js"></script>
 <script type="text/javascript" src="/recipes/resources/js/ngTooltips-master/js/ngtooltips.js"></script>
+<script type="text/javascript" src="/recipes/resources/js/directives/angular-ui-numeric.js"></script>
+<script type="text/javascript" src="/recipes/resources/js/recipes.js"></script>
 <script type="text/javascript" src="/recipes/resources/js/directives/date-time.js"></script>
 <title>Recipes</title>
 </head>
