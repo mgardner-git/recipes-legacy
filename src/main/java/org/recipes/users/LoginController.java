@@ -34,7 +34,7 @@ public class LoginController {
 		if (loggedInUser == null){
 			request.setAttribute(SessionStuff.LOGIN_ERROR, "We could not find a user matching that username and password.");
 			logger.info("Could not authenticate user " + username);
-			return "forward:/login"; //forward back to the login form			
+			return "forward:/login.jsp"; //forward back to the login form			
 		}else{
 			logger.info("Authenticated user " + username);
 			session.setAttribute(SessionStuff.USER, loggedInUser);
