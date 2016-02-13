@@ -12,7 +12,7 @@
 <div align="center">
 <form action="doLogin" method="POST" >
  <div>
- 	<label>Email Address:</label>
+ 	<label>Username:</label>
  	<input type="text" name="username"/>
  </div>
  <div>

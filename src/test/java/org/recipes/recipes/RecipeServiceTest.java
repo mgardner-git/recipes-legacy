@@ -1,5 +1,6 @@
 package org.recipes.recipes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.After;
@@ -143,7 +144,10 @@ public class RecipeServiceTest extends TestCase{
 	
 	@Test
 	public void testCupboardQuery(){
-		int[] ingredients = {2,3,4};
+		List<Ingredient> ingredients = new ArrayList<Ingredient>();
+		Ingredient ingredient2 = new Ingredient(); ingredient2.setId(2); ingredients.add(ingredient2);
+		Ingredient ingredient3 = new Ingredient(); ingredient3.setId(3); ingredients.add(ingredient3);
+		Ingredient ingredient4 = new Ingredient(); ingredient4.setId(4); ingredients.add(ingredient4);
 		List<Recipe> results = recipeService.getRecipesThatCloselyMatchIngredientList(ingredients, 2);
 		
 		
