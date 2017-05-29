@@ -17,6 +17,7 @@ var app = angular.module('recipesApp', ['ngTooltips']);
 app.controller('recipesController', function($scope, $http) {
 });
 
+//Http Intercpetor for generic error handling
 app.factory('myHttpResponseInterceptor',['$q','$location',function($q,$location){
 	return {
 		responseError: function(response){
@@ -24,18 +25,18 @@ app.factory('myHttpResponseInterceptor',['$q','$location',function($q,$location)
 	        if (response.status === 403) {
 	            window.location.href="/recipes/login.jsp";
 	        }else{
-	        	alert("We were unable to process your request: " + response);
+	        	alert("We were unable to process your request: " + response.data);
 	        }
-	        return response;
+	        return $q.reject(response);
 	   
 		}
 	}
 }]);
 
-//Http Intercpetor to check auth failures for xhr requests
-app.config(['$httpProvider',function($httpProvider) {
+
+app.config(function($httpProvider) {
 	$httpProvider.interceptors.push('myHttpResponseInterceptor');
-}]);
+});
 
 jQuery(function() {
 	 

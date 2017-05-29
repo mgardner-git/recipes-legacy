@@ -9,5 +9,6 @@
 	<bean id="measurementTypeService" class="org.recipes.measurementTypes.MeasurementTypeService"/>
 	<bean id="ingredientService" class="org.recipes.ingredients.IngredientService"/>
 	<bean id="recipeUsesIngredientService" class="org.recipes.recipeUsesIngredient.RecipeUsesIngredientService"/>
+	<bean id="groupService" class="org.recipes.groups.GroupService"/>
 	<bean name="expiredPasswordFilterBean" class="org.recipes.filters.ExpiredPasswordFilter"/>  
 </beans>

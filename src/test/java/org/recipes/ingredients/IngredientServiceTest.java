@@ -1,4 +1,4 @@
-package IngredientServiceTest;
+package org.recipes.ingredients;
 
 import java.util.List;
 

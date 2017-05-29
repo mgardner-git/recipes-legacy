@@ -70,3 +70,21 @@ INSERT INTO recipe_uses_ingredient (id,recipe_fk,ingredient_fk,measurementType_f
 #and one pound of broccoli
 INSERT INTO recipe_uses_ingredient (id,recipe_fk,ingredient_fk, measurementType_fk, quantity) VALUES (6,2,4,1,1);
 
+CREATE TABLE groups(
+ id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ title VARCHAR(100) NOT NULL,
+ description TEXT NOT NULL
+);
+INSERT INTO groups (id,title,description) VALUES (1,"Mexican Food Group", "A Group for people who like mexican food"); 
+INSERT INTO groups (id,title,description) VALUES (2,"Japanese Food Group", "A Group for people who like Japanese food");
+
+CREATE TABLE membership(
+ id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ group_fk INT NOT NULL,
+ user_fk VARCHAR(20) NOT NULL,
+ FOREIGN KEY (group_fk) REFERENCES groups(id),
+ FOREIGN KEY (user_fk) REFERENCES users(id)
+);
+#Bob is a member of the Mexican food group
+INSERT INTO membership (id, group_fk,user_fk) VALUES (1,1,"bob");
+	

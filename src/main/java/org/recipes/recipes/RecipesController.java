@@ -8,7 +8,10 @@ import org.recipes.util.SessionStuff;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,7 +57,7 @@ public class RecipesController {
 	}
 	
 	@RequestMapping(value="", method=RequestMethod.PUT)
-	public  @ResponseBody Recipe update(@RequestBody Recipe recipe){
+	public  @ResponseBody Recipe update(@RequestBody Recipe recipe) throws IllegalArgumentException{
 		User user = SessionStuff.getLoggedInUser();
 		recipe.setUser(user);				
 		Recipe result = recipeService.update(recipe);
@@ -65,6 +68,13 @@ public class RecipesController {
 	public @ResponseBody boolean delete(@PathVariable Integer id){
 		recipeService.delete(id);
 		return true;
+	}
+	
+	@ExceptionHandler(IllegalArgumentException.class)
+	public ResponseEntity<Object> exceptionHandler(Exception e){
+		String msg = "\"" + e.getMessage() + "\"";
+		ResponseEntity<Object> response = new ResponseEntity<Object> (msg,HttpStatus.BAD_REQUEST);
+		return response;
 	}
 	
 }

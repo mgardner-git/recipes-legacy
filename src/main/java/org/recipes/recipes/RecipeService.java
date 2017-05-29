@@ -15,6 +15,7 @@ import org.recipes.ingredients.IngredientService;
 import org.recipes.measurementTypes.MeasurementType;
 import org.recipes.measurementTypes.MeasurementTypeService;
 import org.recipes.recipeUsesIngredient.RecipeUsesIngredient;
+import org.recipes.recipeUsesIngredient.RecipeUsesIngredientService;
 import org.recipes.users.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,8 @@ public class RecipeService {
 	IngredientService ingredientService;
 	@Autowired
 	MeasurementTypeService measurementTypeService;
+	@Autowired
+	RecipeUsesIngredientService recipeUsesIngredientService;
 	
 	
 	public List<Recipe> getMyRecipes(User user){
@@ -145,14 +148,20 @@ public class RecipeService {
 			
 			List<RecipeUsesIngredient> ruis = new ArrayList<RecipeUsesIngredient>();
 			for (RecipeUsesIngredient rui : recipe.getRecipeUsesIngredients()){
-				rui.setRecipe(recipe); //ensures referential integrity, ensures that the table constraints will be met
-				Ingredient persistedEntity = ingredientService.createOrUpdate(em,rui.getIngredient()); //?? transaction issues ??
-				rui.setIngredient(persistedEntity);
+				RecipeUsesIngredient ruiLive;
+				if (rui.getId() != null){
+					ruiLive = recipeUsesIngredientService.read(rui.getId());
+				}else{
+					ruiLive = recipeUsesIngredientService.create(rui);
+				}
+				ruiLive.setRecipe(recipe); //ensures referential integrity, ensures that the table constraints will be met
+				Ingredient persistedEntity = ingredientService.createOrUpdate(em,ruiLive.getIngredient()); //?? transaction issues ??
+				ruiLive.setIngredient(persistedEntity);
 				
 				MeasurementType persistedMt = measurementTypeService.createOrUpdate(em,rui.getMeasurementType());
-				rui.setMeasurementType(persistedMt);
-				ruis.add(rui);
-				em.persist(rui);
+				ruiLive.setMeasurementType(persistedMt);
+				ruis.add(ruiLive);
+				em.merge(ruiLive);
 			}
 			List<RecipeUsesIngredient> missingChildren = identifyMissingChildren(em,recipe);
 			for (RecipeUsesIngredient deleteMe : missingChildren){
@@ -167,7 +176,7 @@ public class RecipeService {
 			base.setRecipeUsesIngredients(ruis);
 			
 			
-			em.persist(base);			
+			em.merge(base);			
 			em.flush();
 			Recipe result = em.find(Recipe.class, base.getId()); 
 			em.getTransaction().commit();

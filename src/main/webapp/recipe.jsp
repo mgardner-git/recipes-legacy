@@ -1,4 +1,3 @@
-<%@page import="model.*" %>
 <%@page import="java.util.*" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -124,15 +123,14 @@
 		
 		$scope.saveRecipe = function(){
 			var recipeStr = JSON.stringify($scope.recipe);
-			jQuery.ajax({
+
+			$http({
+				method: $scope.recipe.id ? "PUT":"POST",
 				url: "rest/recipes",
-				type: $scope.recipe.id ? "PUT":"POST",
-				data: recipeStr, 
-				contentType: "application/json",
-				success: function(data){
-					alert("Recipe Saved");
-					window.location.href="myRecipes.jsp";
-				}
+				data: recipeStr				
+			}).then(function(response){
+				alert("Recipe Saved");
+				window.location.href="myRecipes.jsp";				
 			});
 		}
 		
