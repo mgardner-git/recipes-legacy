@@ -19,7 +19,7 @@
  	<label> Password:</label>
  	<input type="password" name="password"/>
  </div>
- <input type="submit"/>
+ <input type="submit" value="Log In"/>
 </form>
 
 <% if (request.getAttribute(SessionStuff.LOGIN_ERROR) != null){ %>
