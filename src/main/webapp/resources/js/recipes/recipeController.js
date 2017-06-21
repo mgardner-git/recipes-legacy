@@ -6,16 +6,16 @@ app.controller('recipeController', function($scope, $http,$timeout) {
 	
 	$scope.loadMeasurementTypes = function(){
 		$http.get("rest/measurementTypes").
-		success(function(data,status,headers,config){
-			$scope.measurementTypes = data;
+		then(function(response){
+			$scope.measurementTypes = response.data;
 		});
 	};
 	
 	$scope.loadRecipe = function(){
 		$http.get("rest/recipes/" + id).
-		success(function(data, status, headers, config) {
-			$scope.recipe = data;
-			$scope.$apply();
+		then(function(response) {
+			$scope.recipe = response.data
+			
 		});			
 	};
 	
@@ -43,44 +43,6 @@ app.controller('recipeController', function($scope, $http,$timeout) {
 		}
 	}
 	
-	$scope.configureMeasurementTypes = function(){
-		var rows = jQuery("#ingredients tbody tr");
-		var measurementTypeInputs = rows.find("td:nth-of-type(2) input");				
-		measurementTypeInputs.each(function(index,inputNode){
-			inputNode = jQuery(inputNode);
-			inputNode.autocomplete({
-				source: function(searchObj, response){
-					var results = [];
-					for (var index=0; index < $scope.measurementTypes.length; index++){
-						//if the title of the measurementType object begins with the entered search term
-						var mtObj = $scope.measurementTypes[index];
-						if (mtObj.label.toUpperCase().indexOf(searchObj.term.toUpperCase()) == 0){
-							var match = $scope.measurementTypes[index];
-							results.push(match);
-						}
-					}
-					response(results);
-					
-				},
-				select: function(event,ui){
-					var mt = ui.item.value;							
-					$scope.recipe.recipeUsesIngredients[index].measurementType = mt;
-					event.preventDefault();
-					inputNode.val(ui.item.label);							
-				},
-				change: function(event,ui){
-					//if the user types something in, but it doesn't match to anything
-					if (!ui.item){
-						var mt = {
-								title: inputNode.val(),
-								description: ""
-						};
-						$scope.recipe.recipeUsesIngredients[index].measurementType = mt;
-					}
-				}
-			});//end autocomplete config
-		});//end each
-	};
 	
 	$scope.configureIngredients = function(){
 		var rows = jQuery("#ingredients tbody tr");		
@@ -150,8 +112,7 @@ app.controller('recipeController', function($scope, $http,$timeout) {
 	}
 	
 	$scope.$watch("recipe.recipeUsesIngredients",function(){			
-		$timeout(function(){			
-			$scope.configureMeasurementTypes();
+		$timeout(function(){
 			$scope.configureIngredients();
 		});//end timeout
 	},true);

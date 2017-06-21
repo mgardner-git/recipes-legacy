@@ -4,7 +4,7 @@
 <jsp:include page="header.jsp"/>
 <script type="text/javascript" src="resources/js/directives/measurementTypeDialog.js"></script>
 <script type="text/javascript" src="resources/js/directives/ingredientDialog.js"></script>
-<script type="text/javascript" src="resources/js/recipes/recipesController.js"></script>
+<script type="text/javascript" src="resources/js/recipes/recipeController.js"></script>
 
 <script type="text/javascript">
 	
@@ -36,8 +36,13 @@
 		</tr></thead>
 		<tbody>
 			<tr ng-repeat="rui in recipe.recipeUsesIngredients">
-				<td><input name="quantity" ng-model="rui.quantity" numeric/></td>
-				<td><input name="measurementType" ng-model="rui.measurementType.title"/></td>
+				<td><input name="quantity" ng-model="rui.quantity" number-spinner min="1" /></td>
+				<td>
+					<md-autocomplete md-no-cache="false" md-selected-item="rui.measurementType" md-items="measurementType in measurementTypes" 
+					md-search-text="select a measurement type" md-item.text=item.title">
+						<span>{{item.title}}</span>
+					</md-autocomplete>
+				</td>
 				<td><input name="ingredient" ng-model="rui.ingredient.title"/></td>
 				<td><span ng-click="removeRui(rui)" class="ui-icon ui-icon-large ui-icon-delete" title="Remove this ingredient from the recipe"></span></td>
 			</tr>	

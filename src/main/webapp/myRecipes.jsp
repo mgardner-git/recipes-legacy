@@ -3,30 +3,8 @@
     pageEncoding="ISO-8859-1"%>
 <jsp:include page="header.jsp"/>
 <script type="text/javascript" src="resources/js/directives/confirmDeleteRecipeDialog.js"></script>
+<script type="text/javascript" src="resources/js/recipes/myRecipesController.js"></script>
 
-<script type="text/javascript">
-	
-	var app = angular.module('recipesApp');
-	app.controller('myRecipesController', function($scope, $http, $timeout) {
-		$scope.selectedRecipe = null;
-		$scope.getMyRecipes = function(){
-			console.log("Fetching my recipes");
-			$http.get("rest/recipes/myRecipes").
-			success(function(data, status, headers, config) {
-				$scope.myRecipes = data;
-			});
-		}
-		$scope.confirmDeleteRecipe = function(recipe){
-			$scope.selectedRecipe = recipe;
-			$timeout(function(){
-				jQuery("#confirmDeleteRecipeDialog").dialog("open");	
-			});
-			
-		}
-		
-		$scope.getMyRecipes();
-	});
-</script>
 
 
 

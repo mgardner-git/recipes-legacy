@@ -13,11 +13,11 @@ var parseLocation = function() {
 };
 	
 	
-var app = angular.module('recipesApp', ['ngTooltips', 'ui.numeric']);
-app.controller('recipesController', function($scope, $http) {
+var app = angular.module("recipesApp", ["ngTooltips", "number-spinner", "ngMaterial"]);
+app.controller("recipesController", function($scope, $http) {
 });
 
-//Http Intercpetor for generic error handling
+//Http Interceptor for generic error handling
 app.factory('myHttpResponseInterceptor',['$q','$location',function($q,$location){
 	return {
 		responseError: function(response){
@@ -35,7 +35,7 @@ app.factory('myHttpResponseInterceptor',['$q','$location',function($q,$location)
 
 
 app.config(function($httpProvider) {
-	$httpProvider.interceptors.push('myHttpResponseInterceptor');
+	$httpProvider.interceptors.push("myHttpResponseInterceptor");
 });
 
 jQuery(function() {
