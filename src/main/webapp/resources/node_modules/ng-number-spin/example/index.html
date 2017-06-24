@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../dist/css/ng-number-spin.css">
+    <link rel="stylesheet" href="example.css">
+</head>
+<body>
+
+<h1>ng-number-spin</h1>
+
+<p style="font-size: 11px; opacity: .7"><b>Author</b> Sergey Zhitenev (<a href="https://github.com/falendary">github</a>)</p>
+<p style="font-size: 11px; opacity: .7"><b>License</b> MIT</p>
+<p style="font-size: 11px; opacity: .7"><b>Release date</b> 22.04.2017</p>
+<p style="font-size: 11px; opacity: .7"><b>Version</b> 1.0.0</p>
+
+<p>Customizable directive for numeric inputs ( <code>&lt;input type="number"&gt;</code> ) for Angular.js (1.6.4)</p>
+
+
+<h3>Example 1</h3>
+
+<p>Default settings</p>
+
+<div data-ng-controller="Example1Controller as vm" class="controller-box">
+
+    <div class="example-box">
+
+        <number-spin data-ng-model="vm.amount"></number-spin>
+
+    </div>
+
+    <div class="code-box">
+
+        <h5>HTML</h5>
+
+        <div class="code-wrapper">
+            <code>
+
+                &lt;number-spin data-ng-model="vm.amount"&gt;&lt;/number-spin&gt;
+
+            </code>
+        </div>
+
+        <h5>Javascript</h5>
+
+        <div class="code-wrapper">
+            <code class="javascript-box">app.controller('Example1Controller', ['$scope', function($scope){
+
+                var vm = this;
+
+                vm.amount = 10;
+
+                }]);
+            </code>
+        </div>
+
+    </div>
+
+</div>
+
+<h3>Example 2</h3>
+
+<p>Custom step</p>
+
+<div data-ng-controller="Example2Controller as vm" class="controller-box">
+
+    <div class="example-box">
+
+        <number-spin data-ng-model="vm.amount" data-step="vm.step"></number-spin>
+
+    </div>
+
+    <div class="code-box">
+
+        <h5>HTML</h5>
+
+        <div class="code-wrapper">
+            <code>
+
+                &lt;number-spin data-ng-model="vm.amount" data-step="vm.step"&gt;&lt;/number-spin&gt;
+
+            </code>
+        </div>
+
+        <h5>Javascript</h5>
+
+        <div class="code-wrapper">
+<code class="javascript-box">app.controller('Example2Controller', ['$scope', function($scope){
+
+    var vm = this;
+
+    vm.amount = 10;
+
+    vm.step = 4;
+
+}]);
+</code>
+        </div>
+
+    </div>
+
+</div>
+
+<h3>Example 3</h3>
+
+<p>Hide spin buttons</p>
+
+<div data-ng-controller="Example3Controller as vm" class="controller-box">
+
+    <div class="example-box">
+
+        <number-spin data-ng-model="vm.amount" data-spin-buttons="vm.showButtons"></number-spin>
+
+    </div>
+
+    <div class="code-box">
+
+        <h5>HTML</h5>
+
+        <div class="code-wrapper">
+            <code>
+
+                &lt;number-spin data-ng-model="vm.amount" data-spin-buttons="vm.showButtons"&gt;&lt;/number-spin&gt;
+
+            </code>
+        </div>
+
+        <h5>Javascript</h5>
+
+        <div class="code-wrapper">
+            <code class="javascript-box">app.controller('Example2Controller', ['$scope', function($scope){
+
+                var vm = this;
+
+                vm.amount = 10;
+
+                vm.vm.showButtons = false;
+
+                }]);
+            </code>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="../node_modules/angular/angular.js"></script>
+<script src="../dist/js/ng-number-spin.js"></script>
+<script src="example.js"></script>
+</body>
+</html>

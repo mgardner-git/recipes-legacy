@@ -35,10 +35,11 @@ public class IngredientsController {
 	}
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
-	public @ResponseBody List<AutoCompleteDTO> search(@RequestParam(value="term") String term){			
-		List<Ingredient> results = ingredientService.search(term);	
-		List<AutoCompleteDTO> autoCompleteResults = AutoCompleteDTO.transform(results);
-		return autoCompleteResults;
+	public @ResponseBody List<Ingredient> search(@RequestParam(value="term") String term){			
+		List<Ingredient> results = ingredientService.search(term);
+		return results;
+		//List<AutoCompleteDTO> autoCompleteResults = AutoCompleteDTO.transform(results);
+		//return autoCompleteResults;
 	}
 	
 	

@@ -6,9 +6,7 @@
 <script type="text/javascript" src="resources/js/directives/ingredientDialog.js"></script>
 <script type="text/javascript" src="resources/js/recipes/recipeController.js"></script>
 
-<script type="text/javascript">
-	
-</script>
+
 
 
 
@@ -36,15 +34,21 @@
 		</tr></thead>
 		<tbody>
 			<tr ng-repeat="rui in recipe.recipeUsesIngredients">
-				<td><input name="quantity" ng-model="rui.quantity" number-spinner min="1" /></td>
+				<td><number-spin name="quantity" data-ng-model="rui.quantity"></number-spin></td>
 				<td>
-					<md-autocomplete md-no-cache="false" md-selected-item="rui.measurementType" md-items="measurementType in measurementTypes" 
-					md-search-text="select a measurement type" md-item.text=item.title">
-						<span>{{item.title}}</span>
-					</md-autocomplete>
+					<input type="text" ng-model="rui.measurementType"  placeholder="measurement type"
+					uib-typeahead="measurementType as measurementType.title for measurementType in measurementTypes"
+					 typeahead-no-results="noResults" />
+					<div ng-show="noResults">
+						no matching measurements
+					</div>
 				</td>
-				<td><input name="ingredient" ng-model="rui.ingredient.title"/></td>
+				<td>
+					<input type="text" ng-model="rui.ingredient" placeholder="select an ingredient"
+					uib-typeahead="ingredient as ingredient.title for ingredient in lookupIngredients($viewValue)" />
+				</td>
 				<td><span ng-click="removeRui(rui)" class="ui-icon ui-icon-large ui-icon-delete" title="Remove this ingredient from the recipe"></span></td>
+			
 			</tr>	
 		</tbody>
 	</table>

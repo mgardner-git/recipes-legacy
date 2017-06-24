@@ -32,10 +32,11 @@ public class MeasurementTypesController {
 	}
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
-	public @ResponseBody List<AutoCompleteDTO> readAll(){
+	public @ResponseBody List<MeasurementType> readAll(){
 		List<MeasurementType> results = measurementTypeService.readAll();
-		List<AutoCompleteDTO> autoCompleteResults = AutoCompleteDTO.transform(results);
-		return autoCompleteResults;
+		return results;
+		//List<AutoCompleteDTO> autoCompleteResults = AutoCompleteDTO.transform(results);
+		//return autoCompleteResults;
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)

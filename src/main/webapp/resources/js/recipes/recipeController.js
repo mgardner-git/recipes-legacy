@@ -43,43 +43,17 @@ app.controller('recipeController', function($scope, $http,$timeout) {
 		}
 	}
 	
-	
-	$scope.configureIngredients = function(){
-		var rows = jQuery("#ingredients tbody tr");		
-		var ingredientInputs = rows.find("td:nth-of-type(3) input");
-		
-		ingredientInputs.each(function(index,inputNode){
-			inputNode = jQuery(inputNode);				
-			inputNode.autocomplete({
-				source: "rest/ingredients",
-				select: function(event,ui){
-					$scope.$apply(function(){
-						var ingredient = ui.item.value;
-						$scope.recipe.recipeUsesIngredients[index].ingredient=ingredient;
-						event.preventDefault();
-						inputNode.val(ui.item.label);
-						});
-					
-				},
-				change: function(event,ui){
-					//if the user types something in, but it doesn't match to anything
-					if (!ui.item){
-						$scope.$apply(function(){
-							var ingredient = {
-									title: inputNode.val(),
-									description: ""
-							};
-							$scope.recipe.recipeUsesIngredients[index].ingredient = ingredient;
-							/**
-							TODO: This still leaves open the possibility that the user has typed in an exact match to another ingredient not knowing that he has to select it from the menu.
-							*/
-						});
-					}
-					
-				}
-			});				
+	//used by the typeahead (autocomplete)
+	$scope.lookupIngredients = function(val){
+		return $http.get("rest/ingredients",{
+			params:{
+				term:val
+			}
+		}).then(function(response){
+			return response.data; 
 		});
-	};
+	}
+	
 	
 	$scope.openAddMeasurementTypeDialog = function(){
 		jQuery("#measurementTypeDialog").dialog("open");
@@ -90,7 +64,7 @@ app.controller('recipeController', function($scope, $http,$timeout) {
 	}
 	
 	$scope.addRui = function(){
-		$scope.recipe.recipeUsesIngredients.push({});
+		$scope.recipe.recipeUsesIngredients.push({"quantity":0});
 	}
 	
 	$scope.removeRui = function(rui){
@@ -111,11 +85,6 @@ app.controller('recipeController', function($scope, $http,$timeout) {
 		});
 	}
 	
-	$scope.$watch("recipe.recipeUsesIngredients",function(){			
-		$timeout(function(){
-			$scope.configureIngredients();
-		});//end timeout
-	},true);
 	
 	$scope.measurementTypes = [];
 	$scope.loadMeasurementTypes();

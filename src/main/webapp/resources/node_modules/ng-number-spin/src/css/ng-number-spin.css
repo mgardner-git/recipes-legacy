@@ -1,0 +1,54 @@
+number-spin div {
+    position: relative;
+    width: 126px;
+}
+
+
+number-spin input {
+    height: 32px;
+    width: 100%;
+    text-align: right;
+    padding-right: 20px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+number-spin .no-spin-buttons input {
+    padding-right: 4px;
+}
+
+
+number-spin .ns-plus {
+    cursor: pointer;
+    position: absolute;
+    text-align: center;
+    line-height: 16px;
+    top: 0;
+    right: 0;
+    height: 16px;
+    display: block;
+    border-left: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    width: 16px;
+}
+
+number-spin .ns-plus:hover {
+    background: #f9f9f9;
+}
+
+number-spin .ns-minus {
+    cursor: pointer;
+    position: absolute;
+    text-align: center;
+    display: block;
+    line-height: 16px;
+    height: 16px;
+    border-left: 1px solid #ccc;
+    bottom: 0;
+    right: 0;
+    width: 16px;
+}
+
+number-spin .ns-minus:hover {
+    background: #f9f9f9;
+}

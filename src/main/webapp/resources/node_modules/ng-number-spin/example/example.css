@@ -1,0 +1,41 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+    padding: 24px;
+}
+
+h1 {
+    margin-top: 0;
+}
+
+.example-box {
+
+    min-width: 160px;
+    display: flex;
+    align-items: center;
+
+}
+a {
+    text-decoration: none;
+}
+
+.javascript-box {
+    white-space: pre;
+}
+
+h5 {
+    margin: 6px 0 ;
+}
+
+.code-wrapper {
+    min-width: 710px;
+    padding: 8px;
+    background: #f9f9f9;
+    border: 1px solid #ccc;
+}
+
+
+.controller-box {
+    display: flex;
+    flex-direction: row;
+}

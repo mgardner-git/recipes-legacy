@@ -13,7 +13,7 @@ var parseLocation = function() {
 };
 	
 	
-var app = angular.module("recipesApp", ["ngTooltips", "number-spinner", "ngMaterial"]);
+var app = angular.module("recipesApp", ["ngNumberSpin", "ui.bootstrap"]);
 app.controller("recipesController", function($scope, $http) {
 });
 
