@@ -23,13 +23,14 @@
 	<h3>Ingredients</h3>
 	<table border="1" id="ingredients" width="570">
 		<thead><tr>
-			<th class="numericHeader">Quantity</th>
-			<!-- 
-			<a class="ui-icon ui-icon-create" ng-click="openAddMeasurementTypeDialog()" title="Add a new type of measurement"></a>
-			<a class="ui-icon ui-icon-create" ng-click="openAddIngredientDialog()" title="Add a new ingredient to the system"></a>
-			 -->
-			<th>Measurement </th>
-			<th>Ingredient </th>
+			<th class="numericHeader">Quantity</th>			
+			<th>Measurement 
+				<a class="ui-icon ui-icon-create" ng-click="openAddMeasurementTypeDialog()" title="Add a new type of measurement"></a>
+			</th>
+			<th>
+				Ingredient
+				<a class="ui-icon ui-icon-create" ng-click="openAddIngredientDialog()" title="Add a new ingredient to the system"></a> 
+			</th>
 			<th><a class="ui-icon ui-icon-create" ng-click="addRui()" title="Select a new quantity and ingredient for this recipe"></a></th>
 		</tr></thead>
 		<tbody>

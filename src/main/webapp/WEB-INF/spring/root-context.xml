@@ -11,4 +11,5 @@
 	<bean id="recipeUsesIngredientService" class="org.recipes.recipeUsesIngredient.RecipeUsesIngredientService"/>
 	<bean id="groupService" class="org.recipes.groups.GroupService"/>
 	<bean name="expiredPasswordFilterBean" class="org.recipes.filters.ExpiredPasswordFilter"/>  
+	<bean name="ErrorFilterBean" class="org.recipes.filters.ErrorFilter"/>
 </beans>

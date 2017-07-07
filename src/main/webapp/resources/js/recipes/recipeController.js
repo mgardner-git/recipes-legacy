@@ -1,7 +1,7 @@
 var app = angular.module('recipesApp');
 var id = parseLocation()["id"];
 
-app.controller('recipeController', function($scope, $http,$timeout) {
+app.controller('recipeController', function($scope, $http,$timeout, $uibModal) {
 	
 	
 	$scope.loadMeasurementTypes = function(){
@@ -56,11 +56,35 @@ app.controller('recipeController', function($scope, $http,$timeout) {
 	
 	
 	$scope.openAddMeasurementTypeDialog = function(){
-		jQuery("#measurementTypeDialog").dialog("open");
+		var modalInstance = $uibModal.open({
+			animation:true,
+			templateUrl: "/recipes/resources/dialogs/measurementType.html",
+			controller: "measurementTypeDialog",
+			resolve: {
+				//??
+			}
+		});
+		modalInstance.result.then(function(measurementType){
+			if (measurementType){
+				$scope.measurementTypes.push(measurementType); //??should we reload these?
+			}
+		})
 	};
 	
 	$scope.openAddIngredientDialog = function(){
-		jQuery("#ingredientDialog").dialog("open");
+		var modalInstance = $uibModal.open({
+			animation:true,
+			templateUrl:"/recipes/resources/dialogs/ingredient.html",
+			controller: "ingredientDialog",
+			resolve:{
+				//??
+			}				
+		});
+		modalInstance.result.then(function(ingredient){
+			if (ingredient){
+
+			}
+		})
 	}
 	
 	$scope.addRui = function(){

@@ -13,7 +13,7 @@ var parseLocation = function() {
 };
 	
 	
-var app = angular.module("recipesApp", ["ngNumberSpin", "ui.bootstrap"]);
+var app = angular.module("recipesApp", ["ngNumberSpin", "ngAnimate", "ui.bootstrap"]);
 app.controller("recipesController", function($scope, $http) {
 });
 
@@ -25,7 +25,7 @@ app.factory('myHttpResponseInterceptor',['$q','$location',function($q,$location)
 	        if (response.status === 403) {
 	            window.location.href="/recipes/login.jsp";
 	        }else{
-	        	alert("We were unable to process your request: " + response.data);
+	        	alert("We were unable to process your request: " + response.message);
 	        }
 	        return $q.reject(response);
 	   

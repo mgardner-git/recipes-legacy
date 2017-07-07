@@ -1,10 +1,19 @@
-<div id="ingredientDialog">
-<p>
-<label>Title:</label>
-<input ng-model="ingredient.title"/>
-</p>
-<p>
-<label>Description:</label>
-<textarea ng-model="ingredient.description"></textarea>
-</p>
+<div id="ingredientDialog2">
+	<div class="modal-header">
+		<h3 class="modal-title">Create a new Ingredient</h3>
+	</div>
+	<div class="modal-body">
+		<p>
+		<label>Title:</label>
+		<input ng-model="ingredient.title"/>
+		</p>
+		<p>
+		<label>Description:</label>
+		<textarea ng-model="ingredient.description"></textarea>
+		</p>
+	</div>
+	<div class="modal-footer">
+		<button class="btn" ng-click="cancel()">Cancel</button>
+		<button class="btn btn-primary" ng-click="save()">Create this Ingredient</button>		
+	</div>
 </div>

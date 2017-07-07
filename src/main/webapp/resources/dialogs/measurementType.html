@@ -1,10 +1,19 @@
-<div id="measurementTypeDialog">
-<p>
-<label>Title:</label>
-<input ng-model="measurementType.title"/>
-</p>
-<p>
-<label>Description:</label>
-<textarea ng-model="measurementType.description"></textarea>
-</p>
+<div id="measurementTypeDialog" class="source-list-modal">
+	<div class="modal-header">
+		<h3 class="modal-title">Create a new Measurement Type</h3>
+	</div>
+	<div class="modal-body">
+		<p>
+		<label>Title:</label>
+		<input ng-model="measurementType.title"/>
+		</p>
+		<p>
+		<label>Description:</label>
+		<textarea ng-model="measurementType.description"></textarea>
+		</p>
+	</div>
+	<div class="modal-footer">
+		<button class="btn" ng-click="cancel()">Cancel</button>
+		<button class="btn btn-primary" ng-click="save()   ">Create this measurement type</button>		
+	</div>
 </div>

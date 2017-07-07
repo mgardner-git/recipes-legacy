@@ -152,6 +152,7 @@ public class RecipeService {
 				if (rui.getId() != null){
 					ruiLive = recipeUsesIngredientService.read(rui.getId());
 				}else{
+					rui.setRecipe(base);
 					ruiLive = recipeUsesIngredientService.create(rui);
 				}
 				ruiLive.setRecipe(recipe); //ensures referential integrity, ensures that the table constraints will be met
