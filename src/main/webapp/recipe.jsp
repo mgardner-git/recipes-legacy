@@ -38,7 +38,7 @@
 				<td><number-spin name="quantity" data-ng-model="rui.quantity"></number-spin></td>
 				<td>
 					<input type="text" ng-model="rui.measurementType"  placeholder="measurement type"
-					uib-typeahead="measurementType as measurementType.title for measurementType in measurementTypes"
+					uib-typeahead="measurementType as measurementType.title for measurementType in lookupMeasurementTypes($viewValue)"
 					 typeahead-no-results="noResults" />
 					<div ng-show="noResults">
 						no matching measurements

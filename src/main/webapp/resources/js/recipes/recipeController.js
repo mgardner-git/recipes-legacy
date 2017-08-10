@@ -43,6 +43,17 @@ app.controller('recipeController', function($scope, $http,$timeout, $uibModal) {
 		}
 	}
 	
+	$scope.lookupMeasurementTypes = function(val){
+		var results = new Array();
+		for (var index=0; index < $scope.measurementTypes.length; index++){
+			var checkMeasurement = $scope.measurementTypes[index];
+			//prefix check			
+			if (checkMeasurement.title.substring(0,val.length) == val){
+				results.push(checkMeasurement);
+			}			
+		}
+		return results;
+	}
 	//used by the typeahead (autocomplete)
 	$scope.lookupIngredients = function(val){
 		return $http.get("rest/ingredients",{
