@@ -20,7 +20,7 @@ import java.util.List;
 @NamedQueries({
 	@NamedQuery(name="Ingredient.search", query="SELECT i FROM Ingredient i WHERE i.title like :term"),
 	@NamedQuery(name="Ingredient.searchExact", query="SELECT i FROM Ingredient i WHERE TRIM(UPPER(i.title))=TRIM(UPPER(:term))"),
-	@NamedQuery(name="Ingredient.myIngredients", query="SELECT i from Recipe r inner join r.recipeUsesIngredients rui inner join rui.ingredient i where r.user = :user")
+	@NamedQuery(name="Ingredient.myIngredients", query="SELECT distinct i from Recipe r inner join r.recipeUsesIngredients rui inner join rui.ingredient i where r.user = :user")
 })
 public class Ingredient implements Serializable, AutoComplete {
 	private static final long serialVersionUID = 1L;
