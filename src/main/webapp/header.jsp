@@ -5,19 +5,19 @@
 <html>
 <head>
 
-<link rel="stylesheet" type="text/css" href="/recipes/resources/style/recipes.css"/>
-<link rel="stylesheet" type="text/css" href="/recipes/resources/node_modules/bootstrap/dist/css/bootstrap.min.css"/>
-<link rel="stylesheet" type="text/css" href="/recipes/resources/node_modules/ng-number-spin/dist/css/ng-number-spin.min.css"/>
-<link rel="stylesheet" type="text/css" href="/recipes/resources/node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css"/>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/style/recipes.css"/>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}resources/node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/node_modules/ng-number-spin/dist/css/ng-number-spin.min.css"/>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css"/>
 
-<script type="text/javascript" src="/recipes/resources/node_modules/angular/angular.min.js"></script>
-<script type="text/javascript" src="/recipes/resources/node_modules/jquery/dist/jquery.min.js"></script>
-<script type="text/javascript" src="/recipes/resources/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/recipes/resources/node_modules/angular-animate/angular-animate.min.js"></script>
-<script type="text/javascript" src="/recipes/resources/node_modules/ng-number-spin/dist/js/ng-number-spin.min.js"></script>
-<script type="text/javascript" src="/recipes/resources/node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/node_modules/angular/angular.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/node_modules/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/node_modules/angular-animate/angular-animate.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/node_modules/ng-number-spin/dist/js/ng-number-spin.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
 
-<script type="text/javascript" src="/recipes/resources/js/recipes.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/recipes.js"></script>
 
 
 <title>Recipes</title>
