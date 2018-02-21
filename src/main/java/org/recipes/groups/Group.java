@@ -27,7 +27,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @NamedQueries({
 	@NamedQuery(name="Group.findAll", query="SELECT g FROM Group g"),
 	@NamedQuery(name="Group.myGroups", query="SELECT g from Group g inner join g.memberships m WHERE m.user = :user"),
-	@NamedQuery(name="Group.search", query="SELECT g from Group g WHERE g.title like :term")
+	@NamedQuery(name="Group.search", query="SELECT g from Group g WHERE g.title like :term"),
+	@NamedQuery(name="Group.unjoinedGroups", query = "SELECT distinct(g) from Group g left join g.memberships m WHERE m.user IS NULL OR m.user != :user")
 })
 public class Group implements Serializable {
 	private static final long serialVersionUID = 1L;

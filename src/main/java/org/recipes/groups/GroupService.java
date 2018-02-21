@@ -31,6 +31,17 @@ public class GroupService {
 	}
 	
 	
+	/**
+	 * Returns all groups which are not attached to the given user
+	 */
+	public List<Group> getUnjoinedGroups(User user) {
+		EntityManager em = emf.createEntityManager();
+		Query query = em.createNamedQuery("Group.unjoinedGroups");
+		query.setParameter("user", user);
+		@SuppressWarnings("unchecked")
+		List<Group> results = query.getResultList();
+		return results;
+	}
 	
 	/**
 	 * Returns all groups which are attached to the given user

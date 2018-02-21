@@ -1,0 +1,10 @@
+<table id="joinGroupsTable" border="1">
+	<thead><tr><th>Name</th><th>Description</th></tr></thead>
+	<tbody>
+		<tr ng-repeat="group in unjoinedGroups"  ng-class="{'selected':group==selectedGroup}" ng-click="selectGroup($index)">
+			<td>{{group.title}}</td>
+			<td>{{group.description}}</td>
+		</tr>
+	</tbody>
+</table>
+<button ng-click="submitJoinGroup()">Join Selected Group</button>

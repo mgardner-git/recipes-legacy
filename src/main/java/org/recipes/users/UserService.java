@@ -26,6 +26,7 @@ public class UserService {
 		Query query = em.createNamedQuery("User.login");
 		query.setParameter("id",id);
 		query.setParameter("password",password);
+		@SuppressWarnings("unchecked")
 		List<User> results = query.getResultList();
 		if (results != null && results.size() == 1){
 			User entity = results.get(0);

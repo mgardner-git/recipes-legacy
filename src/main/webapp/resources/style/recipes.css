@@ -128,3 +128,7 @@ header h1
 .numericHeader{
 	min-width: 200px;
 }
+
+.selected {
+	background-color: RGB(210,210,255);
+}

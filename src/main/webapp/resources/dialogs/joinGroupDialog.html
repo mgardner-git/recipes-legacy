@@ -1,0 +1,15 @@
+<div id="joinGroupDialog">
+
+<table id="groupsTable">
+	<thead>
+		<tr><th>Group Name</th><th>Description</th></tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="group in groups" ng-click="selectedGroup = group">
+			<td>{{group.title}}</td>
+			<td>{{group.description}}</td>
+		</tr>
+	</tbody>
+</table>
+
+</div>

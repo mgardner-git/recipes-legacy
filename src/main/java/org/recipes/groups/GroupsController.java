@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * Handles requests related to Groups and Membership in Groups
+ * Handles requests related to Groups
  */
 @Controller
 @RequestMapping(value = "rest/groups")
@@ -40,6 +40,14 @@ public class GroupsController {
 		User user = SessionStuff.getLoggedInUser();
 		List<Group> groups = service.getMyGroups(user);
 		return groups;		
+	}
+	
+	@RequestMapping(value="unjoinedGroups", method=RequestMethod.GET) 
+	public @ResponseBody List<Group> getUnjoinedGroups() {
+		User user = SessionStuff.getLoggedInUser();
+		List<Group> groups = service.getUnjoinedGroups(user);
+		return groups;
+		
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
