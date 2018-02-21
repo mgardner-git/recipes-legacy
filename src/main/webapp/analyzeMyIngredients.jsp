@@ -41,7 +41,7 @@
 	<div>
 		<label for="threshold">Threshold:</label>
 		<numeric field-name="threshold"></numeric>
-	
+	  	<input type="number" name="threshold" ng-model="threshold" min="0" max="99">
 	</div>
 	<div id="container" ng-class="notInSelected" >
 		<ul id="selectedIngredients">
