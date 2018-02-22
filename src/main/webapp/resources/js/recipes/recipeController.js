@@ -48,7 +48,8 @@ app.controller('recipeController', function($scope, $http,$timeout, $uibModal) {
 		for (var index=0; index < $scope.measurementTypes.length; index++){
 			var checkMeasurement = $scope.measurementTypes[index];
 			//prefix check			
-			if (checkMeasurement.title.substring(0,val.length) == val){
+			var prefix = checkMeasurement.title.substring(0,val.length);
+			if (prefix.toUpperCase() == val.toUpperCase()){
 				results.push(checkMeasurement);
 			}			
 		}
@@ -69,23 +70,21 @@ app.controller('recipeController', function($scope, $http,$timeout, $uibModal) {
 	$scope.openAddMeasurementTypeDialog = function(){
 		var modalInstance = $uibModal.open({
 			animation:true,
-			templateUrl: "/recipes/resources/dialogs/measurementType.html",
+			templateUrl: "resources/dialogs/measurementType.html",
 			controller: "measurementTypeDialog",
 			resolve: {
-				//??
+				
 			}
 		});
 		modalInstance.result.then(function(measurementType){
-			if (measurementType){
-				$scope.measurementTypes.push(measurementType); //??should we reload these?
-			}
+			$scope.loadMeasurementTypes();
 		})
 	};
 	
 	$scope.openAddIngredientDialog = function(){
 		var modalInstance = $uibModal.open({
 			animation:true,
-			templateUrl:"/recipes/resources/dialogs/ingredient.html",
+			templateUrl:"resources/dialogs/ingredient.html",
 			controller: "ingredientDialog",
 			resolve:{
 				//??
