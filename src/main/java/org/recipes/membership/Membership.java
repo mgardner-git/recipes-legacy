@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
@@ -19,7 +20,10 @@ import org.recipes.users.User;
  */
 @Entity
 @Table(name="membership")
-@NamedQuery(name="Membership.findAll", query="SELECT m FROM Membership m")
+@NamedQueries({
+	@NamedQuery(name="Membership.findAll", query="SELECT m FROM Membership m"),
+	@NamedQuery(name="Membership.search", query="SELECT m FROM Membership m WHERE m.user.id=:userId AND m.group.id=:groupId")
+})
 public class Membership implements Serializable {
 	private static final long serialVersionUID = 1L;
 

@@ -5,7 +5,6 @@ import org.recipes.users.User;
 import org.recipes.util.SessionStuff;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,6 +31,13 @@ public class MembershipController {
 		join.setUser(user);
 		Membership result = membershipService.create(join);
 		return result;
+	}
+	
+	@RequestMapping(value = "", method=RequestMethod.DELETE)
+	public @ResponseBody boolean delete(@RequestParam int groupId) {
 		
+		User user = SessionStuff.getLoggedInUser();
+		boolean result = membershipService.delete(user.getId(), groupId);
+		return result;
 	}
 }
