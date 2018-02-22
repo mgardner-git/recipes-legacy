@@ -109,7 +109,6 @@ app.controller('recipeController', function($scope, $http,$timeout, $uibModal) {
 	
 	$scope.saveRecipe = function(){
 		var recipeStr = JSON.stringify($scope.recipe);
-
 		$http({
 			method: $scope.recipe.id ? "PUT":"POST",
 			url: "rest/recipes",

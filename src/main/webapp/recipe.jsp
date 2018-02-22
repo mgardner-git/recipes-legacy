@@ -49,7 +49,6 @@
 					uib-typeahead="ingredient as ingredient.title for ingredient in lookupIngredients($viewValue)" />
 				</td>
 				<td><span ng-click="removeRui(rui)" class="ui-icon ui-icon-large ui-icon-delete" title="Remove this ingredient from the recipe"></span></td>
-			
 			</tr>	
 		</tbody>
 	</table>

@@ -151,6 +151,7 @@ public class RecipeService {
 				RecipeUsesIngredient ruiLive;
 				if (rui.getId() != null){
 					ruiLive = recipeUsesIngredientService.read(rui.getId());
+					ruiLive.setQuantity(rui.getQuantity());
 				}else{
 					rui.setRecipe(base);
 					ruiLive = recipeUsesIngredientService.create(rui);
