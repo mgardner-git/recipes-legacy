@@ -35,7 +35,11 @@
 		</tr></thead>
 		<tbody>
 			<tr ng-repeat="rui in recipe.recipeUsesIngredients">
-				<td><number-spin name="quantity" data-ng-model="rui.quantity"></number-spin></td>
+				<td>
+					<number-spin name="quantity" data-ng-model="rui.quantity"></number-spin>
+					<span class="ui-icon ui-icon-error" title="{{errors[$index][0]}}" ng-show="showErrors($index,0)"></span>
+					
+				</td>
 				<td>
 					<input type="text" ng-model="rui.measurementType"  placeholder="measurement type"
 					uib-typeahead="measurementType as measurementType.title for measurementType in lookupMeasurementTypes($viewValue)"
@@ -43,17 +47,21 @@
 					<div ng-show="noResults">
 						no matching measurements
 					</div>
+					<span class="ui-icon ui-icon-error" title="{{errors[$index][1]}}" ng-show = "showErrors($index,1)"></span>
 				</td>
 				<td>
 					<input type="text" ng-model="rui.ingredient" placeholder="select an ingredient"
 					uib-typeahead="ingredient as ingredient.title for ingredient in lookupIngredients($viewValue)" />
+					<span class="ui-icon ui-icon-error" title="{{errors[$index][2]}}" ng-show = "showErrors($index,2)"></span>
 				</td>
-				<td><span ng-click="removeRui(rui)" class="ui-icon ui-icon-large ui-icon-delete" title="Remove this ingredient from the recipe"></span></td>
+				<td>
+					<span ng-click="removeRui(rui)" class="ui-icon ui-icon-large ui-icon-delete" title="Remove this ingredient from the recipe"></span>
+				</td>
 			</tr>	
 		</tbody>
 	</table>
 	<measurement-type-dialog update-func="loadMeasurementTypes()"></measurement-type-dialog>
 	<ingredient-dialog></ingredient-dialog>
-	<input type="button" ng-click="saveRecipe()" value="Save Recipe" ng-disabled="submitDisabled()"></input>
+	<input type="button" ng-click="saveRecipe()" class="btn btn-primary" value="Save Recipe" ng-disabled="submitDisabled()"></input>
 </div>
 <jsp:include page="footer.jsp"/>

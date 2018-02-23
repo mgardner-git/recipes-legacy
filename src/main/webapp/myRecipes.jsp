@@ -25,6 +25,5 @@
 	  		</tr>
 	  	</tbody>
 	</table>
-	<confirm-delete-recipe-dialog recipe="selectedRecipe" update-func="getMyRecipes()"></confirm-delete-recipe-dialog>
 </div>
 <jsp:include page="footer.jsp"/>

@@ -3,6 +3,8 @@ var id = parseLocation()["id"];
 
 app.controller('recipeController', function($scope, $http,$timeout, $uibModal) {
 	
+	//a two dimensional array of strings representing problems that will prevent the user from saving changes to the recipe.
+	$scope.errors = new Array();
 	
 	$scope.loadMeasurementTypes = function(){
 		$http.get("rest/measurementTypes").
@@ -19,29 +21,43 @@ app.controller('recipeController', function($scope, $http,$timeout, $uibModal) {
 		});			
 	};
 	
-	
+	$scope.showErrors = function(row,column) {
+		var errorReference = $scope.errors[row][column];
+		var show = typeof(errorReference) != "undefined"
+			&& errorReference != null
+			&& errorReference != "";
+		return show; 
+	}
+	 
 	$scope.submitDisabled = function(){
 		if ($scope.recipe != null){
+			var recipeInBadState = false;
 			for (var index=0; index < $scope.recipe.recipeUsesIngredients.length; index++){			
 				var checkRui = $scope.recipe.recipeUsesIngredients[index];
-				if (checkRui.quantity == null || checkRui.quantity == 0){
-					return true;
+				$scope.errors[index] = new Array();
+				
+				if (checkRui.quantity == null || checkRui.quantity < 1){
+					$scope.errors[index][0] = "Quantity must be greater than 0";
+					recipeInBadState = true;
 				}
 				if (checkRui.measurementType == null || checkRui.measurementType.id == null){
-					return true;
+					$scope.errors[index][1] = "You must select a measurement type";
+					recipeInBadState =  true;
 				}
 				if (checkRui.ingredient == null || checkRui.ingredient.id == null){
-					return true;
+					$scope.errors[index][2] = "You must select an ingredient";
+					recipeInBadState =  true;
 				}				
 			}
 			if ($scope.recipe.title == null || $scope.recipe.title.length == 0){
-				return true;
+				recipeInBadState = true;
 			}
-			return false;			
+			return recipeInBadState;			
 		}else{
 			return true;
 		}
 	}
+	
 	
 	$scope.lookupMeasurementTypes = function(val){
 		var results = new Array();

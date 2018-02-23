@@ -120,6 +120,9 @@ header h1
 .ui-icon-create{
 	background-image: URL(../img/create-icon.gif);
 }
+.ui-icon-error {
+	background-image: URL(../img/error-icon.png);
+}
 .selected{
 	background-color: yellow;
 	font-weight: bold;
