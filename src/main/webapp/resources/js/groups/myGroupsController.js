@@ -53,6 +53,7 @@ app.controller('myGroupsController', function($scope, $http, $timeout,$uibModal)
 					var result = $http.delete("rest/memberships?groupId=" + $scope.group.id);
 					result.then(function(response) {
 						alert("You have left " + $scope.group.title);
+						$parentScope.getMyGroups();
 					});	
 					modalWindow.close();	
 				};
@@ -62,6 +63,8 @@ app.controller('myGroupsController', function($scope, $http, $timeout,$uibModal)
 				};
 			}
 		});
+		
+	
 	};
 	
 	$scope.getMyGroups();
